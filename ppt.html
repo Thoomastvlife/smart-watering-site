@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <title>簡報｜讓綠意蔓延吧</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
 <style>
@@ -26,12 +27,60 @@ body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang 
 #prog{height:4px;background:#1d3a35}#prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
 body.fs #bar{display:none}
 @media (max-width:560px){#bar .t{display:none}#bar{justify-content:center}}
+
+#flow{position:absolute;inset:0;display:none}
+#flow svg{width:100%;height:100%;display:block}
+body.flowmode #img{display:none}body.flowmode #flow{display:block}
+#bpl,#bstep{display:none}body.flowmode #bpl,body.flowmode #bstep{display:inline-block}
+.fc{transition:transform .35s}.fc.on{transform:translateY(-8px)}
+.fc .card{fill:#fff;stroke:#e1e8e2;stroke-width:2;transition:fill .35s,stroke .35s}
+.fc.on .card{fill:#eef6ef;stroke:#3a7d52;stroke-width:4}
+.fc .num{fill:#3a7d52;transition:fill .3s}.fc.on .num{fill:#1f4d3a}
+.fc .ring{fill:none;stroke:#c9a24a;stroke-width:4;opacity:0;transition:opacity .3s}.fc.on .ring{opacity:1}
+.fc .pbar{fill:#c9a24a;transform-box:fill-box;transform-origin:left;transform:scaleX(0)}
+.fc.on .pbar{animation:pg var(--dur,2.8s) linear forwards}
+@keyframes pg{to{transform:scaleX(1)}}
+.chev{fill:#e4d7ae;transition:fill .3s}.chev.on{fill:#c9a24a}
+.loopp,.loopa,.loopl{opacity:.3;transition:opacity .3s}.loopp.on,.loopa.on,.loopl.on{opacity:1}
+.loopp{fill:none;stroke:#c9a24a;stroke-width:4;stroke-dasharray:10 8}.loopp.on{animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-36}}
+.loopa{fill:#c9a24a}.loopl{fill:#8a6a1c;font-weight:700}
+#carr{transition:transform .9s cubic-bezier(.5,0,.3,1)}
+.drop{fill:#1f7ba8;opacity:0}
+.pump .drop{animation:fall .6s linear infinite}.pump .drop:nth-child(2){animation-delay:.2s}.pump .drop:nth-child(3){animation-delay:.4s}
+@keyframes fall{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(38px)}}
+.hb{transform-box:fill-box;transform-origin:left;transition:transform 2.2s ease,fill .4s}
+.hb.lo{fill:#d08a2e}.hb.mid{fill:#c9a24a}.hb.hi{fill:#3a7d52}
+.leaf{fill:#3a7d52;transition:fill .6s}.leaf.dry{fill:#b9892b}
+.rg{fill:none;stroke-width:3;stroke-dasharray:8 6;opacity:0;transition:opacity .3s,stroke .3s}
+.rg.warn{stroke:#d08a2e;opacity:1}.rg.ok{stroke:#3a7d52;opacity:1;stroke-dasharray:none}
+.pulse{fill:none;stroke:#1f7ba8;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center}
+.scan .pulse{animation:pulse 1.1s ease-out 2}
+@keyframes pulse{from{transform:scale(.3);opacity:.8}to{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){#carr,.hb,.fc,.leaf{transition:none}.pump .drop,.loopp.on,.scan .pulse,.fc.on .pbar{animation:none}.pump .drop{opacity:.8}}
 </style>
 </head>
 <body>
 <div id="prog"><i id="pbar"></i></div>
 <div id="stage">
   <img id="img" src="/ppt-assets/s01.jpg" width="1467" height="825" alt="">
+  <div id="flow"><svg id="fsvg" viewBox="0 0 1467 825" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif" role="img" aria-label="自動運作流程動畫：偵測、判斷、定位、澆水、等待、再檢測；濕度未達標時會再次定位並澆水">
+<defs><filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#1f4d3a" flood-opacity=".18"/></filter></defs>
+<rect width="1467" height="825" fill="#f6f8f5"/>
+<text x="75" y="88" font-size="46" font-weight="900" fill="#1f4d3a">自動運作流程</text>
+<rect x="70" y="109" width="78" height="6" fill="#3a7d52"/>
+<text x="172" y="118" font-size="16" fill="#5f746b">由濕度偵測開始，依序完成定位、澆水與再次確認</text>
+<g id="loopg"><path class="loopp" d="M1320 414V448Q1320 466 1302 466H644Q626 466 626 448V428"/><polygon class="loopa" points="614,430 626,412 638,430"/><rect x="823" y="450" width="300" height="32" rx="8" fill="#f6f8f5"/><text class="loopl" x="973" y="473" font-size="19" text-anchor="middle">仍偏乾 → 再次定位、澆水</text></g>
+<g id="cards"></g>
+<rect x="63" y="500" width="1357" height="240" rx="26" fill="#fff" stroke="#e1e8e2" stroke-width="2" filter="url(#sh)"/>
+<text id="cap" x="741" y="534" font-size="22" font-weight="700" text-anchor="middle" fill="#1f4d3a"></text>
+<line x1="170" y1="562" x2="1312" y2="562" stroke="#c5d6d1" stroke-width="8" stroke-linecap="round"/>
+<g id="pots"></g>
+<g id="carr" style="transform:translateX(741px)"><rect x="-30" y="548" width="60" height="28" rx="8" fill="#1f4d3a"/><rect x="-6" y="576" width="12" height="16" fill="#1f4d3a"/><g><circle class="drop" cx="0" cy="598" r="4.5"/><circle class="drop" cx="0" cy="598" r="4.5"/><circle class="drop" cx="0" cy="598" r="4.5"/></g></g>
+<text x="1400" y="731" font-size="15" text-anchor="end" fill="#8a9a92">示範動畫已加速</text>
+<text x="741" y="782" font-size="22" font-weight="700" text-anchor="middle" fill="#1f4d3a">持續循環：若再次偵測仍低於設定值，系統會重新定位並澆水，直到濕度達到設定範圍。</text>
+<text x="1387" y="790" font-size="15" fill="#8a9a92">07</text>
+</svg></div>
   <button class="zone l" id="zl" aria-label="上一頁"></button>
   <button class="zone r" id="zr" aria-label="下一頁"></button>
 </div>
@@ -40,12 +89,96 @@ body.fs #bar{display:none}
   <button id="bp" aria-label="上一頁">‹ 上一頁</button>
   <span id="cnt" aria-live="polite">1 / 14</span>
   <button id="bn" aria-label="下一頁">下一頁 ›</button>
+  <button id="bpl" aria-label="暫停或播放動畫">暫停動畫</button>
+  <button id="bstep" aria-label="動畫下一步">下一步動作</button>
   <button id="bf" aria-label="全螢幕">全螢幕</button>
   <a href="/ppt-assets/deck.pptx" download="讓綠意蔓延吧_智慧澆水系統簡報.pptx">下載 PPTX</a>
 </div>
 <script>
 (function(){
   var alts=["封面：讓綠意蔓延吧","專題動機與簡介","核心創意：一管三盆","系統架構","硬體設備與用途","軟體與網路技術","自動運作流程","智慧循環與安全防呆","遠端網頁監控與手動控制","手機即時推播通知","實測結果","作品優勢與應用性","結論與未來展望","參考資料"];
+
+  var $=function(x){return document.getElementById(x)};
+  var Flow=(function(){
+    var NS="http://www.w3.org/2000/svg";
+    function E(t,a,p,tx){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(tx!=null)e.textContent=tx;if(p)p.appendChild(e);return e}
+    var svg=$("fsvg"),cap=$("cap"),carr=$("carr"),cG=$("cards"),pG=$("pots"),lG=$("loopg");
+    var PX=[300,741,1182],CX=[63,295,526,758,989,1220],D=2800;
+    var ST=[["01","偵測","讀取三盆植物","的土壤濕度"],["02","判斷","找出低於設定值","的盆栽"],["03","定位","滑塊移動至","目標盆栽位置"],["04","澆水","啟動水泵，","澆水約 10 秒"],["05","等待","回到中間位置，","等待約 30 秒"],["06","再檢測","重新讀取濕度，","必要時再次澆水"]];
+    var FR=[
+      {s:0,x:1,v:[25,72,68],scan:1,cap:"偵測：讀取三盆植物的土壤濕度"},
+      {s:1,ring:"warn",cap:"判斷：植物 1 只有 25%，低於 30% 的設定值，需要澆水"},
+      {s:2,x:0,ring:"warn",cap:"定位：滑塊移動到植物 1 上方"},
+      {s:3,v:[48,72,68],pump:1,cnt:10,ring:"warn",cap:"澆水：水泵啟動，約 10 秒（剩 {n} 秒）"},
+      {s:4,x:1,v:[50,72,68],cnt:30,ring:"warn",cap:"等待：回到中間位置，約 30 秒讓水分滲入（剩 {n} 秒）"},
+      {s:5,v:[52,72,68],scan:1,loop:1,ring:"warn",cap:"再檢測：植物 1 為 52%，仍低於 60%，需要再澆一次"},
+      {s:2,x:0,loop:1,ring:"warn",cap:"第 2 輪定位：滑塊再次移動到植物 1 上方"},
+      {s:3,v:[70,72,68],pump:1,cnt:10,ring:"warn",cap:"第 2 輪澆水：水泵啟動，約 10 秒（剩 {n} 秒）"},
+      {s:4,x:1,v:[68,72,68],cnt:30,ring:"warn",cap:"等待：回到中間位置，約 30 秒讓水分滲入（剩 {n} 秒）"},
+      {s:5,scan:1,ring:"ok",dur:4200,cap:"再檢測：植物 1 為 68%，已達 60% 以上，澆水完成 ✔"}
+    ];
+    var cards=[],chevs=[],pots=[];
+    ST.forEach(function(s,j){
+      var x=CX[j],g=E("g",{"class":"fc"},cG),m={"text-anchor":"middle"};
+      E("rect",{"class":"card",x:x,y:240,width:200,height:170,rx:34,filter:"url(#sh)"},g);
+      E("text",{x:x+100,y:302,"text-anchor":"middle","font-size":30,"font-weight":900,fill:"#1f4d3a"},g,s[1]);
+      E("text",{x:x+100,y:346,"text-anchor":"middle","font-size":20,fill:"#33473f"},g,s[2]);
+      E("text",{x:x+100,y:374,"text-anchor":"middle","font-size":20,fill:"#33473f"},g,s[3]);
+      E("rect",{"class":"pbar",x:x+30,y:392,width:140,height:6,rx:3},g);
+      E("circle",{"class":"ring",cx:x+100,cy:214,r:44},g);
+      E("circle",{"class":"num",cx:x+100,cy:214,r:36},g);
+      E("text",{x:x+100,y:221,"text-anchor":"middle","font-size":20,"font-weight":700,fill:"#fff"},g,s[0]);
+      cards.push(g);
+      if(j<5){var c=x+216;chevs.push(E("polygon",{"class":"chev",points:[[c-8,303],[c+2,303],[c+12,325],[c+2,347],[c-8,347],[c+2,325]].join(" ")},cG))}
+    });
+    PX.forEach(function(cx,i){
+      var p={};
+      p.ring=E("rect",{"class":"rg",x:cx-95,y:604,width:190,height:130,rx:18},pG);
+      p.pulse=E("circle",{"class":"pulse",cx:cx,cy:640,r:34},pG);
+      E("path",{d:"M"+(cx-48)+" 640H"+(cx+48)+"L"+(cx+38)+" 684H"+(cx-38)+"Z",fill:"#b5703f"},pG);
+      E("rect",{x:cx-52,y:634,width:104,height:10,rx:4,fill:"#8f5530"},pG);
+      E("line",{x1:cx,y1:636,x2:cx,y2:616,stroke:"#2f6b45","stroke-width":4,"stroke-linecap":"round"},pG);
+      p.leaf=[E("ellipse",{"class":"leaf",cx:cx-15,cy:622,rx:17,ry:9,transform:"rotate(-28 "+(cx-15)+" 622)"},pG),E("ellipse",{"class":"leaf",cx:cx+15,cy:618,rx:17,ry:9,transform:"rotate(28 "+(cx+15)+" 618)"},pG)];
+      p.txt=E("text",{x:cx,y:708,"text-anchor":"middle","font-size":20,"font-weight":700,fill:"#33473f"},pG,"植物 "+(i+1));
+      E("rect",{x:cx-65,y:718,width:130,height:8,rx:4,fill:"#dfe8e1"},pG);
+      p.fill=E("rect",{"class":"hb hi",x:cx-65,y:718,width:130,height:8,rx:4},pG);
+      pots.push(p);
+    });
+    var k=0,playing=false,tm=0,iv=0,gen=0,st={x:1,v:[25,72,68]},shown=[0,0,0];
+    var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function setH(i,v,inst){
+      var p=pots[i],from=shown[i],g=gen,t0=performance.now(),d=(inst||rm)?0:2200;
+      shown[i]=v;
+      p.fill.style.transform="scaleX("+(v/100)+")";
+      p.fill.setAttribute("class","hb "+(v<=30?"lo":v<60?"mid":"hi"));
+      p.leaf.forEach(function(l){l.classList.toggle("dry",v<=30)});
+      (function f(t){if(g!==gen)return;var r=d?Math.min(1,(t-t0)/d):1;p.txt.textContent="植物 "+(i+1)+"　"+Math.round(from+(v-from)*r)+"%";if(r<1)requestAnimationFrame(f)})(t0);
+    }
+    function apply(n,inst){
+      var f=FR[n],dur=f.dur||D;
+      if(f.x!==undefined)st.x=f.x;if(f.v)st.v=f.v;
+      carr.style.transform="translateX("+PX[st.x]+"px)";
+      svg.style.setProperty("--dur",dur+"ms");
+      cards.forEach(function(c,j){c.classList.toggle("on",j===f.s)});
+      chevs.forEach(function(c,j){c.classList.toggle("on",f.s>j)});
+      [].forEach.call(lG.querySelectorAll(".loopp,.loopa,.loopl"),function(e){e.classList.toggle("on",!!f.loop)});
+      svg.classList.toggle("pump",!!f.pump);
+      svg.classList.remove("scan");if(f.scan){void svg.getBoundingClientRect();svg.classList.add("scan")}
+      pots[0].ring.setAttribute("class","rg "+(f.ring||""));
+      st.v.forEach(function(v,i){setH(i,v,inst)});
+      clearInterval(iv);
+      cap.textContent=f.cap.replace("{n}",f.cnt||"");
+      if(f.cnt){var t1=performance.now();iv=setInterval(function(){var n2=Math.max(0,Math.ceil(f.cnt*(1-(performance.now()-t1)/(dur*.9))));cap.textContent=f.cap.replace("{n}",n2)},120)}
+    }
+    function sched(){clearTimeout(tm);tm=setTimeout(next,FR[k].dur||D)}
+    function next(){k=(k+1)%FR.length;apply(k,k===0&&false);if(playing)sched()}
+    function upd(){$("bpl").textContent=playing?"暫停動畫":"播放動畫"}
+    function stop(){clearTimeout(tm);clearInterval(iv);gen++;playing=false}
+    function start(){stop();k=0;st={x:1,v:[25,72,68]};apply(0,true);playing=!rm;upd();if(playing)sched()}
+    function toggle(){if(playing){playing=false;clearTimeout(tm)}else{playing=true;sched()}upd()}
+    function step(){playing=false;clearTimeout(tm);next();upd()}
+    return {start:start,stop:stop,toggle:toggle,step:step};
+  })();
   var N=alts.length,i=0,img=document.getElementById("img");
   function src(n){return "/ppt-assets/s"+(n<9?"0":"")+(n+1)+".jpg"}
   function show(n){
@@ -53,6 +186,8 @@ body.fs #bar{display:none}
     img.src=src(i);img.alt="第 "+(i+1)+" 頁："+alts[i];
     document.getElementById("cnt").textContent=(i+1)+" / "+N;
     document.getElementById("pbar").style.width=((i+1)/N*100)+"%";
+    document.body.classList.toggle("flowmode",i===6);
+    if(i===6){Flow.start()}else{Flow.stop()}
     document.title=(i+1)+"/"+N+" "+alts[i]+"｜簡報";
     if(i<N-1){new Image().src=src(i+1)}
     if(i>0){new Image().src=src(i-1)}
@@ -68,12 +203,14 @@ body.fs #bar{display:none}
   document.getElementById("zr").onclick=next;document.getElementById("zl").onclick=prev;
   document.getElementById("bn").onclick=next;document.getElementById("bp").onclick=prev;
   document.getElementById("bf").onclick=fs;
+  $("bpl").onclick=function(){Flow.toggle()};$("bstep").onclick=function(){Flow.step()};
   document.addEventListener("keydown",function(e){
     var k=e.key;
     if(k==="ArrowRight"||k==="PageDown"||k===" "||k==="Enter"){e.preventDefault();next()}
     else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace"){e.preventDefault();prev()}
     else if(k==="Home"){show(0)}else if(k==="End"){show(N-1)}
     else if(k==="f"||k==="F"){fs()}
+    else if((k==="p"||k==="P")&&i===6){Flow.toggle()}
   });
   var sx=null;
   var st=document.getElementById("stage");
