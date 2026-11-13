@@ -79,7 +79,7 @@ body.flowmode #img{display:none}body.flowmode #flow{display:block}
 <g id="carr" style="transform:translateX(741px)"><rect x="-30" y="548" width="60" height="28" rx="8" fill="#1f4d3a"/><rect x="-6" y="576" width="12" height="16" fill="#1f4d3a"/><g><circle class="drop" cx="0" cy="598" r="4.5"/><circle class="drop" cx="0" cy="598" r="4.5"/><circle class="drop" cx="0" cy="598" r="4.5"/></g></g>
 <text x="1400" y="731" font-size="15" text-anchor="end" fill="#8a9a92">示範動畫已加速</text>
 <text x="741" y="782" font-size="22" font-weight="700" text-anchor="middle" fill="#1f4d3a">持續循環：若再次偵測仍低於設定值，系統會重新定位並澆水，直到濕度達到設定範圍。</text>
-<text x="1387" y="790" font-size="15" fill="#8a9a92">07</text>
+<text x="1387" y="790" font-size="15" fill="#8a9a92">08</text>
 </svg></div>
   <button class="zone l" id="zl" aria-label="上一頁"></button>
   <button class="zone r" id="zr" aria-label="下一頁"></button>
@@ -87,7 +87,7 @@ body.flowmode #img{display:none}body.flowmode #flow{display:block}
 <div id="bar">
   <span class="t">讓綠意蔓延吧｜智慧澆水系統簡報</span>
   <button id="bp" aria-label="上一頁">‹ 上一頁</button>
-  <span id="cnt" aria-live="polite">1 / 14</span>
+  <span id="cnt" aria-live="polite">1 / 16</span>
   <button id="bn" aria-label="下一頁">下一頁 ›</button>
   <button id="bpl" aria-label="暫停或播放動畫">暫停動畫</button>
   <button id="bstep" aria-label="動畫下一步">下一步動作</button>
@@ -96,7 +96,7 @@ body.flowmode #img{display:none}body.flowmode #flow{display:block}
 </div>
 <script>
 (function(){
-  var alts=["封面：讓綠意蔓延吧","專題動機與簡介","核心創意：一管三盆","系統架構","硬體設備與用途","軟體與網路技術","自動運作流程","智慧循環與安全防呆","遠端網頁監控與手動控制","手機即時推播通知","實測結果","作品優勢與應用性","結論與未來展望","參考資料"];
+  var alts=["封面：讓綠意蔓延吧","專題動機與簡介","核心創意：一管三盆","想達成的目標","系統架構","硬體設備與用途","軟體與網路技術","自動運作流程","智慧循環與安全防呆","遠端網頁監控與手動控制","手機即時推播通知","問題與解決","實測結果","作品優勢與應用性","結論與未來展望","參考資料"];
 
   var $=function(x){return document.getElementById(x)};
   var Flow=(function(){
@@ -186,8 +186,8 @@ body.flowmode #img{display:none}body.flowmode #flow{display:block}
     img.src=src(i);img.alt="第 "+(i+1)+" 頁："+alts[i];
     document.getElementById("cnt").textContent=(i+1)+" / "+N;
     document.getElementById("pbar").style.width=((i+1)/N*100)+"%";
-    document.body.classList.toggle("flowmode",i===6);
-    if(i===6){Flow.start()}else{Flow.stop()}
+    document.body.classList.toggle("flowmode",i===7);
+    if(i===7){Flow.start()}else{Flow.stop()}
     document.title=(i+1)+"/"+N+" "+alts[i]+"｜簡報";
     if(i<N-1){new Image().src=src(i+1)}
     if(i>0){new Image().src=src(i-1)}
@@ -210,7 +210,7 @@ body.flowmode #img{display:none}body.flowmode #flow{display:block}
     else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace"){e.preventDefault();prev()}
     else if(k==="Home"){show(0)}else if(k==="End"){show(N-1)}
     else if(k==="f"||k==="F"){fs()}
-    else if((k==="p"||k==="P")&&i===6){Flow.toggle()}
+    else if((k==="p"||k==="P")&&i===7){Flow.toggle()}
   });
   var sx=null;
   var st=document.getElementById("stage");
