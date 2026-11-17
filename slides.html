@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>讓綠意蔓延吧｜智慧澆水系統簡報</title><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet"><style>
+:root{--g:#1c4a37;--g2:#2f8f5b;--o:#e07a2e;--cream:#fbf8ef;--ink:#17302a;--mut:#58706a;--line:#dde5df;--bar:#0f2420}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#091a17;color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;overflow:hidden}
+#prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--g2);transition:width .3s;z-index:9}
+.wrapper{position:fixed;inset:0 0 56px 0;display:grid;place-items:center}
+.stage{--u:1cqw;position:relative;width:min(100vw,calc((100dvh - 56px)*16/9));aspect-ratio:16/9;container-type:inline-size;overflow:hidden;background:var(--cream)}
+.slide{position:absolute;inset:0;background:var(--cream);opacity:0;visibility:hidden;transition:opacity .35s;padding:calc(var(--u)*3.6) calc(var(--u)*4.2);display:flex;flex-direction:column;overflow:hidden;font-size:calc(var(--u)*1.6);line-height:1.55}
+.slide.on{opacity:1;visibility:visible}
+.hd{display:flex;align-items:flex-end;gap:calc(var(--u)*1.4);margin-bottom:calc(var(--u)*2.2)}
+.hd .n{font-size:calc(var(--u)*4.2);font-weight:900;color:transparent;-webkit-text-stroke:calc(var(--u)*.14) var(--o);line-height:1}
+.hd h2{margin:0;font-size:calc(var(--u)*3.2);color:var(--g);line-height:1.15}
+.hd p{margin:calc(var(--u)*.3) 0 0;color:var(--mut);font-size:calc(var(--u)*1.6)}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;gap:calc(var(--u)*1.6)}
+.grid{display:grid;gap:calc(var(--u)*1.4)}
+.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:#fff;border:calc(var(--u)*.15) solid var(--line);border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.5) calc(var(--u)*1.6)}
+.card h3{margin:0 0 calc(var(--u)*.4);font-size:calc(var(--u)*1.95);color:var(--g)}
+.card p{margin:0;color:var(--mut);font-size:calc(var(--u)*1.5);line-height:1.6}
+.card .no{display:block;font-size:calc(var(--u)*1.5);font-weight:900;color:var(--o);margin-bottom:calc(var(--u)*.3)}
+.banner{background:var(--g);color:#fff;border-radius:calc(var(--u)*1);display:grid;place-items:center;text-align:center;font-weight:900;font-size:calc(var(--u)*2.2);padding:calc(var(--u)*1.5);line-height:1.4}
+.note{background:#fff3e6;border-left:calc(var(--u)*.4) solid var(--o);border-radius:0 calc(var(--u)*.8) calc(var(--u)*.8) 0;padding:calc(var(--u)*1.2) calc(var(--u)*1.6);font-size:calc(var(--u)*1.5)}
+.note b{display:block;color:var(--g);font-size:calc(var(--u)*1.8)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*3);flex:1;min-height:0}
+.img{border-radius:calc(var(--u)*1.2);overflow:hidden;border:calc(var(--u)*.15) solid var(--line);background:#fff}
+.img img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.pts{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);justify-content:center}
+.pts .card{border-left:calc(var(--u)*.45) solid var(--g2)}
+/* title slide */
+.s1{padding:0;flex-direction:row}
+.s1 .l{flex:0 0 38%;background:var(--g);color:#fff;padding:calc(var(--u)*6) calc(var(--u)*5) calc(var(--u)*4);display:flex;flex-direction:column}
+.s1 h1{margin:0;font-size:calc(var(--u)*5);line-height:1.25}
+.s1 .l h2{margin:calc(var(--u)*7) 0 calc(var(--u)*2);font-size:calc(var(--u)*1.95);color:#d6ebdf}
+.s1 .l p{margin:0;font-size:calc(var(--u)*1.5);color:#b9d6c6}
+.s1 .l .tail{margin-top:auto}
+.s1 .r{flex:1;padding:calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1)}
+.s1 .r .img{flex:1;min-height:0}
+.s1 .r small{align-self:flex-end;color:var(--mut);font-size:calc(var(--u)*1.3)}
+/* architecture */
+.arch{display:grid;grid-template-columns:1.2fr .35fr 1.1fr .35fr 1.2fr;align-items:center;gap:calc(var(--u)*.6);flex:1;min-height:0}
+.col{display:flex;flex-direction:column;gap:calc(var(--u)*1.4)}
+.box{border:calc(var(--u)*.2) solid var(--g2);background:#eaf5ee;border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.1) calc(var(--u)*1.3);text-align:center}
+.box b{display:block;font-size:calc(var(--u)*1.8);color:var(--g)}.box span{font-size:calc(var(--u)*1.3);color:var(--mut)}
+.box.out{border-color:var(--o);background:#fff3e6}
+.box.core{background:var(--g);border-color:var(--g);color:#fff;padding:calc(var(--u)*2.4) calc(var(--u)*1.2)}
+.box.core b{color:#fff;font-size:calc(var(--u)*3)}.box.core span{color:#d6ebdf;font-size:calc(var(--u)*1.5);line-height:1.7;display:block}
+.arr{text-align:center;color:var(--o);font-size:calc(var(--u)*3);font-weight:900}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:calc(var(--u)*1)}
+.flow .card{text-align:center;padding:calc(var(--u)*1.2) calc(var(--u)*.8)}
+.flow .dot{display:inline-grid;place-items:center;width:calc(var(--u)*3);height:calc(var(--u)*3);border-radius:50%;background:var(--g2);color:#fff;font-weight:900;font-size:calc(var(--u)*1.5);margin-bottom:calc(var(--u)*.5)}
+.chips{display:flex;flex-wrap:wrap;gap:calc(var(--u)*1)}
+.chips span{border:calc(var(--u)*.2) solid var(--g2);border-radius:99px;padding:calc(var(--u)*.4) calc(var(--u)*1.6);font-weight:700;font-size:calc(var(--u)*1.5);background:#fff;color:var(--g)}
+/* pairs */
+.pairs{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);flex:1;min-height:0}
+.pairs .row{display:grid;grid-template-columns:1fr calc(var(--u)*3) 1fr;align-items:stretch;gap:calc(var(--u)*.8);flex:1}
+.pairs .row.h{flex:0 0 auto;font-weight:900;font-size:calc(var(--u)*1.6);color:var(--mut)}
+.pairs .row.h span:nth-child(3){color:var(--g2)}
+.pairs .card{display:flex;flex-direction:column;justify-content:center;padding:calc(var(--u)*.9) calc(var(--u)*1.4)}
+.pairs .card h3{font-size:calc(var(--u)*1.7);margin:0}.pairs .card p{font-size:calc(var(--u)*1.35)}
+.pairs .q{background:#fff3e6;border-color:#f3d3b3}.pairs .q h3{color:#a8561a}
+.pairs .a{background:#eaf5ee;border-color:#c5e2d1}
+.pairs .mid{display:grid;place-items:center;color:var(--o);font-weight:900;font-size:calc(var(--u)*2.4)}
+/* results */
+.res{display:grid;grid-template-columns:1fr 1.15fr;gap:calc(var(--u)*3);flex:1;min-height:0;align-items:start}
+table{border-collapse:collapse;width:100%;font-size:calc(var(--u)*1.55)}
+th,td{padding:calc(var(--u)*.8) calc(var(--u)*1);text-align:center;border-bottom:calc(var(--u)*.1) solid var(--line)}
+th{background:var(--g);color:#fff}
+.chart{background:#fff;border:calc(var(--u)*.15) solid var(--line);border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.4)}
+.legend{display:flex;gap:calc(var(--u)*1.6);font-size:calc(var(--u)*1.25);color:var(--mut);margin-bottom:calc(var(--u)*1)}
+.legend i,.b i{display:inline-block;width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);border-radius:3px;margin-right:calc(var(--u)*.4);vertical-align:-.1em}
+.c1{background:#9bc7b0}.c2{background:#58a47c}.c3{background:var(--g)}
+.r3{display:grid;grid-template-columns:calc(var(--u)*6) 1fr;gap:calc(var(--u)*.3) calc(var(--u)*1);align-items:center;margin-bottom:calc(var(--u)*1)}
+.r3 b{grid-row:span 3;font-size:calc(var(--u)*1.5)}
+.bar{height:calc(var(--u)*1.1);background:#e7eee9;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%}
+.small{font-size:calc(var(--u)*1.25);color:var(--mut)}
+/* closing */
+.s12{padding:0;flex-direction:row}
+.s12 .l{flex:1;padding:calc(var(--u)*3.6) calc(var(--u)*4.2);display:flex;flex-direction:column}
+.s12 .r{flex:0 0 36%;background:var(--g);color:#fff;display:grid;place-content:center;text-align:center;gap:calc(var(--u)*1.4)}
+.s12 .r b{font-size:calc(var(--u)*4);line-height:1.3}.s12 .r span{font-size:calc(var(--u)*2);color:#d6ebdf}
+.s12 ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:calc(var(--u)*1)}
+.s12 li{font-size:calc(var(--u)*1.7)}
+/* controls */
+.bar-ctl{position:fixed;left:0;right:0;bottom:0;height:56px;background:#112b25;color:#fff;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:8}
+.bar-ctl .t{font-weight:700;font-size:.95rem;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-ctl button,.bar-ctl a{font:inherit;font-size:.9rem;color:#fff;background:transparent;border:2px solid #2c5a4d;border-radius:10px;padding:0 12px;height:38px;display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.bar-ctl button:hover,.bar-ctl a:hover{background:#1f4a3f}
+.bar-ctl button:focus-visible,.bar-ctl a:focus-visible{outline:3px solid #7fd1a5;outline-offset:2px}
+.bar-ctl button:disabled{opacity:.4;cursor:default}
+#cnt{color:#9fc4b6;font-size:.9rem;min-width:4.5em;text-align:center}
+@media (max-width:760px){
+  .stage{width:100vw;height:calc(100dvh - 56px);aspect-ratio:auto;--u:2.5cqw}
+  .slide{overflow-y:auto;padding:calc(var(--u)*2.6) calc(var(--u)*2.4) calc(var(--u)*4)}
+  .g3,.g4,.two,.res,.s1,.s12{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+  .s1,.s12{flex-direction:column;overflow-y:auto}
+  .s1 .l{flex:none;padding:calc(var(--u)*4) calc(var(--u)*3)}
+  .s1 .l h2{margin-top:calc(var(--u)*3)}.s1 .l .tail{margin-top:calc(var(--u)*3)}
+  .s1 .r{flex:none;padding:calc(var(--u)*3)}.s1 .r .img{flex:none;aspect-ratio:1/1}
+  .s12 .l{flex:none;padding:calc(var(--u)*3)}.s12 .r{flex:none;padding:calc(var(--u)*5)}
+  .hd{flex-wrap:wrap}.hd .n{font-size:calc(var(--u)*5)}.hd h2{font-size:calc(var(--u)*3.6)}
+  .card h3{font-size:calc(var(--u)*2.2)}.card p,.note,.s12 li,table{font-size:calc(var(--u)*1.85)}
+  .banner{font-size:calc(var(--u)*2.4);grid-column:span 2;padding:calc(var(--u)*2)}
+  .two{display:flex;flex-direction:column}
+  .img{height:calc(var(--u)*50)}.img.tall{height:calc(var(--u)*60)}
+  .arch{grid-template-columns:1fr;gap:calc(var(--u)*1)}.arr{transform:rotate(90deg);font-size:calc(var(--u)*3.5)}
+  .box b{font-size:calc(var(--u)*2.2)}.box span{font-size:calc(var(--u)*1.8)}.box.core b{font-size:calc(var(--u)*3.4)}.box.core span{font-size:calc(var(--u)*1.9)}
+  .flow{grid-template-columns:1fr 1fr}
+  .chips span{font-size:calc(var(--u)*1.8)}
+  .pairs .row{grid-template-columns:1fr calc(var(--u)*3.4) 1fr}.pairs .card h3{font-size:calc(var(--u)*2)}.pairs .card p{font-size:calc(var(--u)*1.7)}
+  .pairs .row.h{font-size:calc(var(--u)*1.9)}
+  .r3 b{font-size:calc(var(--u)*1.9)}.legend{font-size:calc(var(--u)*1.7)}.small{font-size:calc(var(--u)*1.7)}
+  .hm,#fs{display:none!important}
+  .bar-ctl .t{display:none}.bar-ctl{justify-content:space-between;padding:0 6px;gap:4px}.bar-ctl button,.bar-ctl a{padding:0 8px;font-size:.84rem}#cnt{min-width:3.4em;font-size:.82rem}
+  .s1 .r small{font-size:calc(var(--u)*1.8)}
+  .slide>*{flex-shrink:0}
+  .body,.arch,.pairs,.two,.res,.pairs .row,.pts{flex:none;min-height:auto}
+  .grid{grid-auto-rows:auto!important}
+  .pics{height:calc(var(--u)*31)}
+  .pics .img{height:100%}
+  .two>.img.tall{height:auto;width:100%;aspect-ratio:640/778}
+}
+@media (prefers-reduced-motion:reduce){.slide,#prog{transition:none}}
+</style></head><body><div id="prog"></div><div class="wrapper"><div class="stage"><section class="slide s1"><div class="l"><h1>讓綠意<br>蔓延吧</h1><h2>ESP32 智慧自動化盆栽澆水系統</h2><p>自動定位・濕度感測・遠端控制</p><p class="tail">專題成果簡報</p></div><div class="r"><div class="img"><img src="img/device.jpg" alt="智慧澆水系統實機：上層為滑軌與三盆植物，下層為控制電路與水箱" style="object-position:center"></div><small>指導老師：余奕達</small></div></section><section class="slide"><div class="hd"><span class="n">02</span><div><h2>專題動機與簡介</h2><p>從日常照護問題出發，讓澆水變得更智慧</p></div></div><div class="body"><div class="grid g3"><div class="card"><h3>忘記澆水</h3><p>生活忙碌或外出時，容易忽略盆栽的水分需求。</p></div><div class="card"><h3>每盆需求不同</h3><p>不同盆栽的土壤乾燥程度不一樣，不適合一律定時澆水。</p></div><div class="card"><h3>澆水不易拿捏</h3><p>澆水不足可能缺水；澆水過多也可能造成積水與根部問題。</p></div></div><div class="note"><b>我們的解決方向</b>以 ESP32 整合土壤濕度感測、紅外線定位、步進馬達滑軌與水泵，讓單一出水口自動移動到需要澆水的盆栽前，並可透過手機或電腦遠端監控與操作。</div></div></section><section class="slide"><div class="hd"><span class="n">03</span><div><h2>想達成的目標</h2><p>把照顧多盆植物這件事，交給自動化系統</p></div></div><div class="body"><div class="grid g4"><div class="card"><span class="no">01</span><h3>自動判斷</h3><p>偵測每盆土壤濕度，自動找出需要澆水的盆栽</p></div><div class="card"><span class="no">02</span><h3>一管三盆</h3><p>單一出水口移動到各盆，不必每盆各配水泵</p></div><div class="card"><span class="no">03</span><h3>遠端掌握</h3><p>手機或電腦即時查看狀態，也能手動控制</p></div><div class="card"><span class="no">04</span><h3>主動通知</h3><p>澆水與重要事件即時推播提醒，不必一直盯著看</p></div></div><div class="note"><b>目標</b>讓植物得到剛剛好的水量，使用者也不必天天照顧。</div></div></section><section class="slide"><div class="hd"><span class="n">04</span><div><h2>七大核心功能</h2><p>自動偵測、定位、澆水，並可遠端監控與手動介入</p></div></div><div class="body"><div class="grid g4" style="flex:1;grid-auto-rows:1fr"><div class="card"><span class="no">01</span><h3>自動偵測濕度</h3><p>持續監測三盆土壤，過乾即啟動</p></div><div class="card"><span class="no">02</span><h3>自動移動定位</h3><p>滑塊移至該盆上方並精準停位</p></div><div class="card"><span class="no">03</span><h3>智慧循環澆水</h3><p>澆 10 秒、等 30 秒，再重新偵測</p></div><div class="card"><span class="no">04</span><h3>遠端網頁監控</h3><p>手機或電腦查看濕度、位置與水泵</p></div><div class="card"><span class="no">05</span><h3>手動控制</h3><p>網頁手動移動滑塊、開關水泵</p></div><div class="card"><span class="no">06</span><h3>安全防呆</h3><p>移動時水泵鎖定，抽水時不移動</p></div><div class="card"><span class="no">07</span><h3>即時推播</h3><p>每 30 秒狀態報告，異常即時通知</p></div><div class="banner">一台機器<br>照顧多盆植物</div></div></div></section><section class="slide"><div class="hd"><span class="n">05</span><div><h2>手機即時推播通知</h2><p>讓使用者不必一直開啟網頁，也能掌握系統狀況</p></div></div><div class="two" style="grid-template-columns:.8fr 1.2fr"><div class="img tall" style="justify-self:center;aspect-ratio:640/778;max-width:100%;background:#000"><img src="img/ntfy.jpg" alt="ntfy 手機通知截圖，顯示定時狀態與澆水未完成警示"></div><div class="pts"><div class="card"><h3>定時狀態回報</h3><p>系統每 30 秒傳送一次狀態資訊。</p></div><div class="card"><h3>事件通知</h3><p>開始澆水、澆水完成或發生異常時，推播提醒使用者。</p></div><div class="card"><h3>通知內容</h3><p>包含目前位置、水泵狀態，以及三盆植物的濕度資訊。</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">06</span><div><h2>系統架構</h2><p>ESP32 作為控制核心，整合感測、移動、供水與網路功能</p></div></div><div class="body"><div class="arch"><div class="col"><div class="box"><b>土壤濕度感測器 ×3</b><span>讀取各盆土壤濕度</span></div><div class="box"><b>紅外線感測器 ×3</b><span>回報位置訊號</span></div></div><div class="arr">➜</div><div class="box core"><b>ESP32</b><span>資料判斷・流程控制<br>網頁伺服器・Wi-Fi</span></div><div class="arr">➜</div><div class="col"><div class="box out"><b>步進馬達＋皮帶滑軌</b><span>移動出水口</span></div><div class="box out"><b>繼電器＋水泵</b><span>控制出水</span></div></div></div><div class="note">Wi-Fi 網路連線：提供手機／電腦網頁監控，並透過 ntfy 服務發送推播通知。</div></div></section><section class="slide"><div class="hd"><span class="n">07</span><div><h2>軟體與網路技術</h2><p>控制程式、網頁介面與推播服務串接</p></div></div><div class="body"><div class="grid g3" style="flex:1;grid-auto-rows:1fr"><div class="card"><h3>Arduino IDE</h3><p>撰寫程式並上傳至 ESP32。</p></div><div class="card"><h3>HTML / CSS / JavaScript</h3><p>設計手機與電腦可使用的網頁操作介面。</p></div><div class="card"><h3>ESP32 網頁伺服器</h3><p>提供即時狀態查詢與手動控制功能。</p></div><div class="card"><h3>Wi-Fi 連線</h3><p>讓 ESP32 與使用者裝置透過網路交換資訊，並以 NTP 同步時間。</p></div><div class="card"><h3>ntfy 推播服務</h3><p>定時回報狀態，並在澆水或異常時通知使用者。</p></div><div class="card"><h3>Blynk 手機儀表板</h3><p>提供手機端儀表板，遠端查看狀態與操作。</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">08</span><div><h2>自動運作流程</h2><p>由濕度偵測開始，依序完成定位、澆水與再次確認</p></div></div><div class="body"><div class="flow"><div class="card"><span class="dot">1</span><h3>偵測</h3><p>讀取三盆植物的土壤濕度</p></div><div class="card"><span class="dot">2</span><h3>判斷</h3><p>找出低於設定值的盆栽</p></div><div class="card"><span class="dot">3</span><h3>定位</h3><p>滑塊移動至目標盆栽位置</p></div><div class="card"><span class="dot">4</span><h3>澆水</h3><p>啟動水泵，澆水約 10 秒</p></div><div class="card"><span class="dot">5</span><h3>等待</h3><p>回到中間位置，等待約 30 秒</p></div><div class="card"><span class="dot">6</span><h3>再檢測</h3><p>重新讀取濕度，必要時再次澆水</p></div></div><div class="small"><b>持續循環：</b>若再次偵測仍低於設定值，系統會重新定位並澆水，直到濕度達到設定範圍。</div><div class="chips"><span>觸發：土壤濕度 ≤ 30%</span><span>結束：土壤濕度 ≥ 60%</span><span>未達標再澆，最多重複 10 輪</span></div><div class="note"><b>為什麼要「等待吸收再判斷」？</b>水分需要時間滲入土壤，澆完立刻量測會失準；先等待再重新偵測，能避免一次澆太多造成積水、爛根，也確保植物真的喝足水。</div></div></section><section class="slide"><div class="hd"><span class="n">09</span><div><h2>遠端網頁監控與手動控制</h2><p>透過網頁與 Blynk 手機儀表板掌握系統狀態，必要時可人工介入</p></div></div><div class="two" style="grid-template-columns:1.1fr .9fr"><div class="pics" style="display:flex;gap:calc(var(--u)*1.6);min-height:0;justify-content:center"><div class="img tall" style="aspect-ratio:517/1200;flex:0 1 auto;height:100%"><img src="img/web.jpg" alt="網頁儀表板截圖"></div><div class="img tall" style="aspect-ratio:640/885;flex:0 1 auto;height:100%"><img src="img/blynk.jpg" alt="Blynk 手機儀表板截圖"></div></div><div class="pts"><div class="card"><h3>即時狀態</h3><p>時間、目前位置、滑塊移動與水泵狀態。</p></div><div class="card"><h3>盆栽資訊</h3><p>顯示各盆濕度、ADC 數值與乾燥／正常狀態。</p></div><div class="card"><h3>手動操作</h3><p>可指定位置 1～3、停止滑塊，並手動開關水泵。</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">10</span><div><h2>問題與解決</h2><p>從實際照護的困擾，對應到系統的設計</p></div></div><div class="pairs"><div class="row h"><span>遇到的問題</span><span></span><span>我們的解法</span></div><div class="row"><div class="card q"><h3>每盆需水量不同</h3><p>定時澆水容易過多或不足</p></div><div class="mid">➜</div><div class="card a"><h3>各盆獨立判斷</h3><p>每盆偵測自己的濕度，只替偏乾的盆栽澆水</p></div></div><div class="row"><div class="card q"><h3>一次澆水難以拿捏</h3><p>澆太多會積水，澆太少仍然缺水</p></div><div class="mid">➜</div><div class="card a"><h3>澆水後再確認</h3><p>澆水約 10 秒、等待約 30 秒，再重新偵測是否達標</p></div></div><div class="row"><div class="card q"><h3>移動與出水同時發生</h3><p>出水位置還在移動，水可能澆錯地方</p></div><div class="mid">➜</div><div class="card a"><h3>動作安全互鎖</h3><p>水泵運轉時滑塊不移動，滑塊移動時水泵不出水</p></div></div><div class="row"><div class="card q"><h3>人不在現場</h3><p>看不到植物狀況，也無法即時處理</p></div><div class="mid">➜</div><div class="card a"><h3>網頁監控與手機推播</h3><p>遠端查看狀態與手動控制，重要事件由 ntfy 通知</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">11</span><div><h2>實測結果</h2><p>依海報紀錄，觀察約 1 分鐘內三盆植物的濕度變化</p></div></div><div class="body"><div class="res"><div><table><tr><th>時間</th><th>植物1</th><th>植物2</th><th>植物3</th></tr><tr><td>15:47:57</td><td>83%</td><td>82%</td><td>80%</td></tr><tr><td>15:48:30</td><td>93%</td><td>90%</td><td>88%</td></tr><tr><td>15:49:03</td><td>95%</td><td>92%</td><td>91%</td></tr></table></div><div class="chart" role="img" aria-label="三盆植物三個時間點的濕度長條圖，數值同左表"><div class="legend"><span><i class="c1"></i>15:47:57</span><span><i class="c2"></i>15:48:30</span><span><i class="c3"></i>15:49:03</span></div><div class="r3"><b>植物1</b><div class="bar"><i class="c1" style="width:83%"></i></div><div class="bar"><i class="c2" style="width:93%"></i></div><div class="bar"><i class="c3" style="width:95%"></i></div></div><div class="r3"><b>植物2</b><div class="bar"><i class="c1" style="width:82%"></i></div><div class="bar"><i class="c2" style="width:90%"></i></div><div class="bar"><i class="c3" style="width:92%"></i></div></div><div class="r3"><b>植物3</b><div class="bar"><i class="c1" style="width:80%"></i></div><div class="bar"><i class="c2" style="width:88%"></i></div><div class="bar"><i class="c3" style="width:91%"></i></div></div></div></div><div class="note"><b>觀察重點</b>紀錄顯示三盆濕度約由 80～83% 上升至 91～95%，系統可持續回報土壤狀態。</div><div class="small">註：以上為海報所列實測紀錄；不同土壤、感測器與環境條件可能造成讀值差異。</div></div></section><section class="slide s12"><div class="l"><div class="hd"><span class="n">12</span><div><h2>結論與未來展望</h2><p>讓科技協助照顧植物，讓綠意持續延伸</p></div></div><div class="body"><p style="margin:0;font-size:calc(var(--u)*1.8)">本專題結合感測技術、自動化控制與網路通訊，完成一套能依照土壤濕度移動定位並自動澆水的智慧系統。</p><ul><li>一台裝置照顧多盆植物，減少逐盆檢查的負擔</li><li>透過網頁與推播，讓使用者遠端掌握系統狀態</li><li>未來可擴充更多盆栽、人工光源與攝影機</li><li>開發中累積軟硬體整合與測試修正的經驗</li></ul></div></div><div class="r"><b>讓綠意<br>蔓延吧</b><span>謝謝聆聽</span></div></section></div></div><div class="bar-ctl"><span class="t">讓綠意蔓延吧｜智慧澆水系統簡報</span><a href="index.html">網站</a><button type="button" id="pv">‹ 上一頁</button><span id="cnt">1 / 12</span><button type="button" id="nx">下一頁 ›</button><button type="button" id="fs">全螢幕</button><a href="green-spread.pptx" download="讓綠意蔓延吧.pptx"><span class="hm">下載 </span>PPTX</a></div><script>(function(){var S=[].slice.call(document.querySelectorAll(".slide")),i=0,cnt=document.getElementById("cnt"),prog=document.getElementById("prog"),pv=document.getElementById("pv"),nx=document.getElementById("nx");
+function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach(function(s,k){s.classList.toggle("on",k===i);s.setAttribute("aria-hidden",k!==i);if(k===i)s.scrollTop=0});cnt.textContent=(i+1)+" / "+S.length;prog.style.width=((i+1)/S.length*100)+"%";pv.disabled=i===0;nx.disabled=i===S.length-1;try{history.replaceState(null,"","#"+(i+1))}catch(e){}}
+pv.onclick=function(){go(i-1)};nx.onclick=function(){go(i+1)};
+var fs=document.getElementById("fs");if(!document.fullscreenEnabled){fs.style.display="none"}else{fs.onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen()}}
+document.addEventListener("keydown",function(e){var k=e.key;if(k==="ArrowRight"||k==="PageDown"||k===" "||k==="ArrowDown"){e.preventDefault();go(i+1)}else if(k==="ArrowLeft"||k==="PageUp"||k==="ArrowUp"){e.preventDefault();go(i-1)}else if(k==="Home")go(0);else if(k==="End")go(S.length-1);else if(k==="f"||k==="F")fs.click()});
+var x0=null,y0=null,st=document.querySelector(".stage");st.addEventListener("touchstart",function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});st.addEventListener("touchend",function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)go(i+(dx<0?1:-1))},{passive:true});
+function fromHash(){var h=parseInt((location.hash||"").slice(1),10);go(isNaN(h)?0:h-1)}window.addEventListener("hashchange",fromHash);fromHash()})();</script></body></html>
