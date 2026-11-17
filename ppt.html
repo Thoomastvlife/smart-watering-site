@@ -1,227 +1,212 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="referrer" content="no-referrer">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<title>簡報｜讓綠意蔓延吧</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
-<style>
-:root{--bg:#0c1a18;--bar:#14302b;--ink:#e3f0ec;--muted:#9bb5af;--accent:#5fc48a;color-scheme:dark}
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>讓綠意蔓延吧｜智慧澆水系統簡報</title><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet"><style>
+:root{--g:#1c4a37;--g2:#2f8f5b;--o:#e07a2e;--cream:#fbf8ef;--ink:#17302a;--mut:#58706a;--line:#dde5df;--bar:#0f2420}
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
-#stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative;touch-action:pan-y;user-select:none}
-#stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;box-shadow:0 8px 40px rgba(0,0,0,.45)}
-.zone{position:absolute;top:0;bottom:0;width:22%;border:0;background:transparent;cursor:pointer;color:transparent}
-.zone.l{left:0}.zone.r{right:0}
-.zone:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-#bar{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--bar);font-size:.92rem}
-#bar .t{margin-right:auto;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#bar button,#bar a{font:inherit;color:var(--ink);background:transparent;border:2px solid #2a4f48;border-radius:8px;padding:4px 12px;text-decoration:none;cursor:pointer;line-height:1.4}
-#bar button:hover,#bar a:hover{border-color:var(--accent)}
-#bar button:focus-visible,#bar a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-#cnt{min-width:4.5em;text-align:center;color:var(--muted);font-variant-numeric:tabular-nums}
-#prog{height:4px;background:#1d3a35}#prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
-body.fs #bar{display:none}
-@media (max-width:560px){#bar .t{display:none}#bar{justify-content:center}}
-
-#flow{position:absolute;inset:0;display:none}
-#flow svg{width:100%;height:100%;display:block}
-body.flowmode #img{display:none}body.flowmode #flow{display:block}
-#bpl,#bstep{display:none}body.flowmode #bpl,body.flowmode #bstep{display:inline-block}
-.fc{transition:transform .35s}.fc.on{transform:translateY(-8px)}
-.fc .card{fill:#fff;stroke:#e1e8e2;stroke-width:2;transition:fill .35s,stroke .35s}
-.fc.on .card{fill:#eef6ef;stroke:#3a7d52;stroke-width:4}
-.fc .num{fill:#3a7d52;transition:fill .3s}.fc.on .num{fill:#1f4d3a}
-.fc .ring{fill:none;stroke:#c9a24a;stroke-width:4;opacity:0;transition:opacity .3s}.fc.on .ring{opacity:1}
-.fc .pbar{fill:#c9a24a;transform-box:fill-box;transform-origin:left;transform:scaleX(0)}
-.fc.on .pbar{animation:pg var(--dur,2.8s) linear forwards}
-@keyframes pg{to{transform:scaleX(1)}}
-.chev{fill:#e4d7ae;transition:fill .3s}.chev.on{fill:#c9a24a}
-.loopp,.loopa,.loopl{opacity:.3;transition:opacity .3s}.loopp.on,.loopa.on,.loopl.on{opacity:1}
-.loopp{fill:none;stroke:#c9a24a;stroke-width:4;stroke-dasharray:10 8}.loopp.on{animation:dash 1s linear infinite}
-@keyframes dash{to{stroke-dashoffset:-36}}
-.loopa{fill:#c9a24a}.loopl{fill:#8a6a1c;font-weight:700}
-#carr{transition:transform .9s cubic-bezier(.5,0,.3,1)}
-.drop{fill:#1f7ba8;opacity:0}
-.pump .drop{animation:fall .6s linear infinite}.pump .drop:nth-child(2){animation-delay:.2s}.pump .drop:nth-child(3){animation-delay:.4s}
-@keyframes fall{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(38px)}}
-.hb{transform-box:fill-box;transform-origin:left;transition:transform 2.2s ease,fill .4s}
-.hb.lo{fill:#d08a2e}.hb.mid{fill:#c9a24a}.hb.hi{fill:#3a7d52}
-.leaf{fill:#3a7d52;transition:fill .6s}.leaf.dry{fill:#b9892b}
-.rg{fill:none;stroke-width:3;stroke-dasharray:8 6;opacity:0;transition:opacity .3s,stroke .3s}
-.rg.warn{stroke:#d08a2e;opacity:1}.rg.ok{stroke:#3a7d52;opacity:1;stroke-dasharray:none}
-.pulse{fill:none;stroke:#1f7ba8;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center}
-.scan .pulse{animation:pulse 1.1s ease-out 2}
-@keyframes pulse{from{transform:scale(.3);opacity:.8}to{transform:scale(1.6);opacity:0}}
-@media (prefers-reduced-motion:reduce){#carr,.hb,.fc,.leaf{transition:none}.pump .drop,.loopp.on,.scan .pulse,.fc.on .pbar{animation:none}.pump .drop{opacity:.8}}
-</style>
-</head>
-<body>
-<div id="prog"><i id="pbar"></i></div>
-<div id="stage">
-  <img id="img" src="/ppt-assets/s01.jpg" width="1467" height="825" alt="">
-  <div id="flow"><svg id="fsvg" viewBox="0 0 1467 825" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif" role="img" aria-label="自動運作流程動畫：偵測、判斷、定位、澆水、等待、再檢測；濕度未達標時會再次定位並澆水">
-<defs><filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#1f4d3a" flood-opacity=".18"/></filter></defs>
-<rect width="1467" height="825" fill="#f6f8f5"/>
-<text x="75" y="88" font-size="46" font-weight="900" fill="#1f4d3a">自動運作流程</text>
-<rect x="70" y="109" width="78" height="6" fill="#3a7d52"/>
-<text x="172" y="118" font-size="16" fill="#5f746b">由濕度偵測開始，依序完成定位、澆水與再次確認</text>
-<g id="loopg"><path class="loopp" d="M1320 414V448Q1320 466 1302 466H644Q626 466 626 448V428"/><polygon class="loopa" points="614,430 626,412 638,430"/><rect x="823" y="450" width="300" height="32" rx="8" fill="#f6f8f5"/><text class="loopl" x="973" y="473" font-size="19" text-anchor="middle">仍偏乾 → 再次定位、澆水</text></g>
-<g id="cards"></g>
-<rect x="63" y="500" width="1357" height="240" rx="26" fill="#fff" stroke="#e1e8e2" stroke-width="2" filter="url(#sh)"/>
-<text id="cap" x="741" y="534" font-size="22" font-weight="700" text-anchor="middle" fill="#1f4d3a"></text>
-<line x1="170" y1="562" x2="1312" y2="562" stroke="#c5d6d1" stroke-width="8" stroke-linecap="round"/>
-<g id="pots"></g>
-<g id="carr" style="transform:translateX(741px)"><rect x="-30" y="548" width="60" height="28" rx="8" fill="#1f4d3a"/><rect x="-6" y="576" width="12" height="16" fill="#1f4d3a"/><g><circle class="drop" cx="0" cy="598" r="4.5"/><circle class="drop" cx="0" cy="598" r="4.5"/><circle class="drop" cx="0" cy="598" r="4.5"/></g></g>
-<text x="1400" y="731" font-size="15" text-anchor="end" fill="#8a9a92">示範動畫已加速</text>
-<text x="741" y="782" font-size="22" font-weight="700" text-anchor="middle" fill="#1f4d3a">持續循環：若再次偵測仍低於設定值，系統會重新定位並澆水，直到濕度達到設定範圍。</text>
-<text x="1387" y="790" font-size="15" fill="#8a9a92">08</text>
-</svg></div>
-  <button class="zone l" id="zl" aria-label="上一頁"></button>
-  <button class="zone r" id="zr" aria-label="下一頁"></button>
-</div>
-<div id="bar">
-  <span class="t">讓綠意蔓延吧｜智慧澆水系統簡報</span>
-  <button id="bp" aria-label="上一頁">‹ 上一頁</button>
-  <span id="cnt" aria-live="polite">1 / 16</span>
-  <button id="bn" aria-label="下一頁">下一頁 ›</button>
-  <button id="bpl" aria-label="暫停或播放動畫">暫停動畫</button>
-  <button id="bstep" aria-label="動畫下一步">下一步動作</button>
-  <button id="bf" aria-label="全螢幕">全螢幕</button>
-  <a href="/ppt-assets/deck.pptx" download="讓綠意蔓延吧_智慧澆水系統簡報.pptx">下載 PPTX</a>
-</div>
-<script>
-(function(){
-  var alts=["封面：讓綠意蔓延吧","專題動機與簡介","核心創意：一管三盆","想達成的目標","系統架構","硬體設備與用途","軟體與網路技術","自動運作流程","智慧循環與安全防呆","遠端網頁監控與手動控制","手機即時推播通知","問題與解決","實測結果","作品優勢與應用性","結論與未來展望","參考資料"];
-
-  var $=function(x){return document.getElementById(x)};
-  var Flow=(function(){
-    var NS="http://www.w3.org/2000/svg";
-    function E(t,a,p,tx){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(tx!=null)e.textContent=tx;if(p)p.appendChild(e);return e}
-    var svg=$("fsvg"),cap=$("cap"),carr=$("carr"),cG=$("cards"),pG=$("pots"),lG=$("loopg");
-    var PX=[300,741,1182],CX=[63,295,526,758,989,1220],D=2800;
-    var ST=[["01","偵測","讀取三盆植物","的土壤濕度"],["02","判斷","找出低於設定值","的盆栽"],["03","定位","滑塊移動至","目標盆栽位置"],["04","澆水","啟動水泵，","澆水約 10 秒"],["05","等待","回到中間位置，","等待約 30 秒"],["06","再檢測","重新讀取濕度，","必要時再次澆水"]];
-    var FR=[
-      {s:0,x:1,v:[25,72,68],scan:1,cap:"偵測：讀取三盆植物的土壤濕度"},
-      {s:1,ring:"warn",cap:"判斷：植物 1 只有 25%，低於 30% 的設定值，需要澆水"},
-      {s:2,x:0,ring:"warn",cap:"定位：滑塊移動到植物 1 上方"},
-      {s:3,v:[48,72,68],pump:1,cnt:10,ring:"warn",cap:"澆水：水泵啟動，約 10 秒（剩 {n} 秒）"},
-      {s:4,x:1,v:[50,72,68],cnt:30,ring:"warn",cap:"等待：回到中間位置，約 30 秒讓水分滲入（剩 {n} 秒）"},
-      {s:5,v:[52,72,68],scan:1,loop:1,ring:"warn",cap:"再檢測：植物 1 為 52%，仍低於 60%，需要再澆一次"},
-      {s:2,x:0,loop:1,ring:"warn",cap:"第 2 輪定位：滑塊再次移動到植物 1 上方"},
-      {s:3,v:[70,72,68],pump:1,cnt:10,ring:"warn",cap:"第 2 輪澆水：水泵啟動，約 10 秒（剩 {n} 秒）"},
-      {s:4,x:1,v:[68,72,68],cnt:30,ring:"warn",cap:"等待：回到中間位置，約 30 秒讓水分滲入（剩 {n} 秒）"},
-      {s:5,scan:1,ring:"ok",dur:4200,cap:"再檢測：植物 1 為 68%，已達 60% 以上，澆水完成 ✔"}
-    ];
-    var cards=[],chevs=[],pots=[];
-    ST.forEach(function(s,j){
-      var x=CX[j],g=E("g",{"class":"fc"},cG),m={"text-anchor":"middle"};
-      E("rect",{"class":"card",x:x,y:240,width:200,height:170,rx:34,filter:"url(#sh)"},g);
-      E("text",{x:x+100,y:302,"text-anchor":"middle","font-size":30,"font-weight":900,fill:"#1f4d3a"},g,s[1]);
-      E("text",{x:x+100,y:346,"text-anchor":"middle","font-size":20,fill:"#33473f"},g,s[2]);
-      E("text",{x:x+100,y:374,"text-anchor":"middle","font-size":20,fill:"#33473f"},g,s[3]);
-      E("rect",{"class":"pbar",x:x+30,y:392,width:140,height:6,rx:3},g);
-      E("circle",{"class":"ring",cx:x+100,cy:214,r:44},g);
-      E("circle",{"class":"num",cx:x+100,cy:214,r:36},g);
-      E("text",{x:x+100,y:221,"text-anchor":"middle","font-size":20,"font-weight":700,fill:"#fff"},g,s[0]);
-      cards.push(g);
-      if(j<5){var c=x+216;chevs.push(E("polygon",{"class":"chev",points:[[c-8,303],[c+2,303],[c+12,325],[c+2,347],[c-8,347],[c+2,325]].join(" ")},cG))}
-    });
-    PX.forEach(function(cx,i){
-      var p={};
-      p.ring=E("rect",{"class":"rg",x:cx-95,y:604,width:190,height:130,rx:18},pG);
-      p.pulse=E("circle",{"class":"pulse",cx:cx,cy:640,r:34},pG);
-      E("path",{d:"M"+(cx-48)+" 640H"+(cx+48)+"L"+(cx+38)+" 684H"+(cx-38)+"Z",fill:"#b5703f"},pG);
-      E("rect",{x:cx-52,y:634,width:104,height:10,rx:4,fill:"#8f5530"},pG);
-      E("line",{x1:cx,y1:636,x2:cx,y2:616,stroke:"#2f6b45","stroke-width":4,"stroke-linecap":"round"},pG);
-      p.leaf=[E("ellipse",{"class":"leaf",cx:cx-15,cy:622,rx:17,ry:9,transform:"rotate(-28 "+(cx-15)+" 622)"},pG),E("ellipse",{"class":"leaf",cx:cx+15,cy:618,rx:17,ry:9,transform:"rotate(28 "+(cx+15)+" 618)"},pG)];
-      p.txt=E("text",{x:cx,y:708,"text-anchor":"middle","font-size":20,"font-weight":700,fill:"#33473f"},pG,"植物 "+(i+1));
-      E("rect",{x:cx-65,y:718,width:130,height:8,rx:4,fill:"#dfe8e1"},pG);
-      p.fill=E("rect",{"class":"hb hi",x:cx-65,y:718,width:130,height:8,rx:4},pG);
-      pots.push(p);
-    });
-    var k=0,playing=false,tm=0,iv=0,gen=0,st={x:1,v:[25,72,68]},shown=[0,0,0];
-    var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function setH(i,v,inst){
-      var p=pots[i],from=shown[i],g=gen,t0=performance.now(),d=(inst||rm)?0:2200;
-      shown[i]=v;
-      p.fill.style.transform="scaleX("+(v/100)+")";
-      p.fill.setAttribute("class","hb "+(v<=30?"lo":v<60?"mid":"hi"));
-      p.leaf.forEach(function(l){l.classList.toggle("dry",v<=30)});
-      (function f(t){if(g!==gen)return;var r=d?Math.min(1,(t-t0)/d):1;p.txt.textContent="植物 "+(i+1)+"　"+Math.round(from+(v-from)*r)+"%";if(r<1)requestAnimationFrame(f)})(t0);
-    }
-    function apply(n,inst){
-      var f=FR[n],dur=f.dur||D;
-      if(f.x!==undefined)st.x=f.x;if(f.v)st.v=f.v;
-      carr.style.transform="translateX("+PX[st.x]+"px)";
-      svg.style.setProperty("--dur",dur+"ms");
-      cards.forEach(function(c,j){c.classList.toggle("on",j===f.s)});
-      chevs.forEach(function(c,j){c.classList.toggle("on",f.s>j)});
-      [].forEach.call(lG.querySelectorAll(".loopp,.loopa,.loopl"),function(e){e.classList.toggle("on",!!f.loop)});
-      svg.classList.toggle("pump",!!f.pump);
-      svg.classList.remove("scan");if(f.scan){void svg.getBoundingClientRect();svg.classList.add("scan")}
-      pots[0].ring.setAttribute("class","rg "+(f.ring||""));
-      st.v.forEach(function(v,i){setH(i,v,inst)});
-      clearInterval(iv);
-      cap.textContent=f.cap.replace("{n}",f.cnt||"");
-      if(f.cnt){var t1=performance.now();iv=setInterval(function(){var n2=Math.max(0,Math.ceil(f.cnt*(1-(performance.now()-t1)/(dur*.9))));cap.textContent=f.cap.replace("{n}",n2)},120)}
-    }
-    function sched(){clearTimeout(tm);tm=setTimeout(next,FR[k].dur||D)}
-    function next(){k=(k+1)%FR.length;apply(k,k===0&&false);if(playing)sched()}
-    function upd(){$("bpl").textContent=playing?"暫停動畫":"播放動畫"}
-    function stop(){clearTimeout(tm);clearInterval(iv);gen++;playing=false}
-    function start(){stop();k=0;st={x:1,v:[25,72,68]};apply(0,true);playing=!rm;upd();if(playing)sched()}
-    function toggle(){if(playing){playing=false;clearTimeout(tm)}else{playing=true;sched()}upd()}
-    function step(){playing=false;clearTimeout(tm);next();upd()}
-    return {start:start,stop:stop,toggle:toggle,step:step};
-  })();
-  var N=alts.length,i=0,img=document.getElementById("img");
-  function src(n){return "/ppt-assets/s"+(n<9?"0":"")+(n+1)+".jpg"}
-  function show(n){
-    i=Math.max(0,Math.min(N-1,n));
-    img.src=src(i);img.alt="第 "+(i+1)+" 頁："+alts[i];
-    document.getElementById("cnt").textContent=(i+1)+" / "+N;
-    document.getElementById("pbar").style.width=((i+1)/N*100)+"%";
-    document.body.classList.toggle("flowmode",i===7);
-    if(i===7){Flow.start()}else{Flow.stop()}
-    document.title=(i+1)+"/"+N+" "+alts[i]+"｜簡報";
-    if(i<N-1){new Image().src=src(i+1)}
-    if(i>0){new Image().src=src(i-1)}
-    try{history.replaceState(null,"","#"+(i+1))}catch(e){}
-  }
-  function next(){show(i+1)}function prev(){show(i-1)}
-  function fs(){
-    var d=document,e=d.documentElement;
-    if(d.fullscreenElement){d.exitFullscreen()}
-    else if(e.requestFullscreen){e.requestFullscreen()}
-  }
-  document.addEventListener("fullscreenchange",function(){document.body.classList.toggle("fs",!!document.fullscreenElement)});
-  document.getElementById("zr").onclick=next;document.getElementById("zl").onclick=prev;
-  document.getElementById("bn").onclick=next;document.getElementById("bp").onclick=prev;
-  document.getElementById("bf").onclick=fs;
-  $("bpl").onclick=function(){Flow.toggle()};$("bstep").onclick=function(){Flow.step()};
-  document.addEventListener("keydown",function(e){
-    var k=e.key;
-    if(k==="ArrowRight"||k==="PageDown"||k===" "||k==="Enter"){e.preventDefault();next()}
-    else if(k==="ArrowLeft"||k==="PageUp"||k==="Backspace"){e.preventDefault();prev()}
-    else if(k==="Home"){show(0)}else if(k==="End"){show(N-1)}
-    else if(k==="f"||k==="F"){fs()}
-    else if((k==="p"||k==="P")&&i===7){Flow.toggle()}
-  });
-  var sx=null;
-  var st=document.getElementById("stage");
-  st.addEventListener("touchstart",function(e){sx=e.touches[0].clientX},{passive:true});
-  st.addEventListener("touchend",function(e){
-    if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;
-    if(Math.abs(dx)>50){dx<0?next():prev()}
-  },{passive:true});
-  var h=parseInt((location.hash||"").slice(1),10);
-  show(h>=1&&h<=N?h-1:0);
-})();
-</script>
-</body>
-</html>
+html,body{height:100%;margin:0;background:#091a17;color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;overflow:hidden}
+#prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--g2);transition:width .3s;z-index:9}
+.wrapper{position:fixed;inset:0 0 56px 0;display:grid;place-items:center}
+.stage{--u:1cqw;position:relative;width:min(100vw,calc((100dvh - 56px)*16/9));aspect-ratio:16/9;container-type:inline-size;overflow:hidden;background:var(--cream)}
+.slide{position:absolute;inset:0;background:var(--cream);opacity:0;visibility:hidden;transition:opacity .35s;padding:calc(var(--u)*3.6) calc(var(--u)*4.2);display:flex;flex-direction:column;overflow:hidden;font-size:calc(var(--u)*1.6);line-height:1.55}
+.slide.on{opacity:1;visibility:visible}
+.hd{display:flex;align-items:flex-end;gap:calc(var(--u)*1.4);margin-bottom:calc(var(--u)*2.2)}
+.hd .n{font-size:calc(var(--u)*4.2);font-weight:900;color:transparent;-webkit-text-stroke:calc(var(--u)*.14) var(--o);line-height:1}
+.hd h2{margin:0;font-size:calc(var(--u)*3.2);color:var(--g);line-height:1.15}
+.hd p{margin:calc(var(--u)*.3) 0 0;color:var(--mut);font-size:calc(var(--u)*1.6)}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;gap:calc(var(--u)*1.6)}
+.grid{display:grid;gap:calc(var(--u)*1.4)}
+.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:#fff;border:calc(var(--u)*.15) solid var(--line);border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.5) calc(var(--u)*1.6)}
+.card h3{margin:0 0 calc(var(--u)*.4);font-size:calc(var(--u)*1.95);color:var(--g)}
+.card p{margin:0;color:var(--mut);font-size:calc(var(--u)*1.5);line-height:1.6}
+.card .no{display:block;font-size:calc(var(--u)*1.5);font-weight:900;color:var(--o);margin-bottom:calc(var(--u)*.3)}
+.banner{background:var(--g);color:#fff;border-radius:calc(var(--u)*1);display:grid;place-items:center;text-align:center;font-weight:900;font-size:calc(var(--u)*2.2);padding:calc(var(--u)*1.5);line-height:1.4}
+.note{background:#fff3e6;border-left:calc(var(--u)*.4) solid var(--o);border-radius:0 calc(var(--u)*.8) calc(var(--u)*.8) 0;padding:calc(var(--u)*1.2) calc(var(--u)*1.6);font-size:calc(var(--u)*1.5)}
+.note b{display:block;color:var(--g);font-size:calc(var(--u)*1.8)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*3);flex:1;min-height:0}
+.img{border-radius:calc(var(--u)*1.2);overflow:hidden;border:calc(var(--u)*.15) solid var(--line);background:#fff}
+.img img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.pts{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);justify-content:center}
+.pts .card{border-left:calc(var(--u)*.45) solid var(--g2)}
+/* title slide */
+.s1{padding:0;flex-direction:row}
+.s1 .l{flex:0 0 38%;background:var(--g);color:#fff;padding:calc(var(--u)*6) calc(var(--u)*5) calc(var(--u)*4);display:flex;flex-direction:column}
+.s1 h1{margin:0;font-size:calc(var(--u)*5);line-height:1.25}
+.s1 .l h2{margin:calc(var(--u)*7) 0 calc(var(--u)*2);font-size:calc(var(--u)*1.95);color:#d6ebdf}
+.s1 .l p{margin:0;font-size:calc(var(--u)*1.5);color:#b9d6c6}
+.s1 .l .tail{margin-top:auto}
+.s1 .r{flex:1;padding:calc(var(--u)*4);display:flex;flex-direction:column;gap:calc(var(--u)*1)}
+.s1 .r .img{flex:1;min-height:0}
+.s1 .r small{align-self:flex-end;color:var(--mut);font-size:calc(var(--u)*1.3)}
+/* architecture */
+.arch{display:grid;grid-template-columns:1.2fr .35fr 1.1fr .35fr 1.2fr;align-items:center;gap:calc(var(--u)*.6);flex:1;min-height:0}
+.col{display:flex;flex-direction:column;gap:calc(var(--u)*1.4)}
+.box{border:calc(var(--u)*.2) solid var(--g2);background:#eaf5ee;border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.1) calc(var(--u)*1.3);text-align:center}
+.box b{display:block;font-size:calc(var(--u)*1.8);color:var(--g)}.box span{font-size:calc(var(--u)*1.3);color:var(--mut)}
+.box.out{border-color:var(--o);background:#fff3e6}
+.box.core{background:var(--g);border-color:var(--g);color:#fff;padding:calc(var(--u)*2.4) calc(var(--u)*1.2)}
+.box.core b{color:#fff;font-size:calc(var(--u)*3)}.box.core span{color:#d6ebdf;font-size:calc(var(--u)*1.5);line-height:1.7;display:block}
+.arr{text-align:center;color:var(--o);font-size:calc(var(--u)*3);font-weight:900}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:calc(var(--u)*1)}
+.flow .card{text-align:center;padding:calc(var(--u)*1.2) calc(var(--u)*.8)}
+.flow .dot{display:inline-grid;place-items:center;width:calc(var(--u)*3);height:calc(var(--u)*3);border-radius:50%;background:var(--g2);color:#fff;font-weight:900;font-size:calc(var(--u)*1.5);margin-bottom:calc(var(--u)*.5)}
+.chips{display:flex;flex-wrap:wrap;gap:calc(var(--u)*1)}
+.chips span{border:calc(var(--u)*.2) solid var(--g2);border-radius:99px;padding:calc(var(--u)*.4) calc(var(--u)*1.6);font-weight:700;font-size:calc(var(--u)*1.5);background:#fff;color:var(--g)}
+/* flow 08 animated */
+.s8b{gap:calc(var(--u)*.6)}
+.fl8{display:flex;align-items:center;gap:0;margin-top:calc(var(--u)*1.6)}
+.fl8 .stp{flex:1 1 0;position:relative;transition:opacity .4s,transform .4s;--w:0}
+.fl8 .cd{background:#fff;border:calc(var(--u)*.15) solid var(--line);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*2.2) calc(var(--u)*.6) calc(var(--u)*1.1);text-align:center;box-shadow:0 calc(var(--u)*.3) calc(var(--u)*.8) rgba(28,74,55,.1);transition:all .4s;position:relative;min-height:calc(var(--u)*10.4)}
+.fl8 h3{margin:0 0 calc(var(--u)*.4);font-size:calc(var(--u)*2);color:var(--g)}
+.fl8 p{margin:0;font-size:calc(var(--u)*1.2);line-height:1.5;color:var(--mut)}
+.fl8 .c{position:absolute;left:50%;top:calc(var(--u)*-1.6);transform:translateX(-50%);z-index:1;width:calc(var(--u)*3.2);height:calc(var(--u)*3.2);border-radius:50%;background:var(--g2);color:#fff;font-weight:900;font-size:calc(var(--u)*1.3);display:grid;place-items:center;transition:all .4s}
+.fl8 .chev{flex:0 0 calc(var(--u)*2);text-align:center;color:#c9a24a;font-style:normal;font-weight:900;font-size:calc(var(--u)*2);transition:opacity .4s}
+.fl8 .pg{position:absolute;left:12%;right:12%;bottom:calc(var(--u)*.7);height:calc(var(--u)*.4);border-radius:9px;background:#c9a24a;transform:scaleX(0);transform-origin:left;opacity:0}
+.fl8 .stp.fut{opacity:.4}.fl8 .chev.fut{opacity:.35}
+.fl8 .stp.act{transform:translateY(calc(var(--u)*-.4))}
+.fl8 .stp.act .cd{border-color:var(--g2);border-width:calc(var(--u)*.25);background:#eef7f1}
+.fl8 .stp.act .c{background:var(--g);box-shadow:0 0 0 calc(var(--u)*.3) #fbf8ef,0 0 0 calc(var(--u)*.5) #c9a24a}
+.fl8 .stp.act .pg{opacity:1}
+.lpw{position:relative;height:calc(var(--u)*3.2);--w:calc((100% - var(--u)*10)/6);--p:calc(var(--w) + var(--u)*2)}
+.lp{position:absolute;top:0;bottom:0;left:calc(var(--p)*2 + var(--w)/2);width:calc(var(--p)*3);border:calc(var(--u)*.2) dashed #e1d3a8;border-top:0;border-radius:0 0 calc(var(--u)*1) calc(var(--u)*1);opacity:.7;transition:all .4s}
+.lp::before{content:"";position:absolute;left:calc(var(--u)*-.75);top:calc(var(--u)*-.5);border:calc(var(--u)*.65) solid transparent;border-bottom:calc(var(--u)*.9) solid #e1d3a8;border-top:0;transition:border-color .4s}
+.lp span{position:absolute;left:50%;bottom:calc(var(--u)*-1);transform:translateX(-50%);background:var(--cream);padding:0 calc(var(--u)*1);font-weight:700;font-size:calc(var(--u)*1.3);color:#cdbd8a;white-space:nowrap;transition:color .4s}
+.lp.on{border-color:#c9a24a;opacity:1}.lp.on::before{border-bottom-color:#c9a24a}.lp.on span{color:#a8801f}
+.dm{background:#fff;border:calc(var(--u)*.15) solid var(--line);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*1.2) calc(var(--u)*2) calc(var(--u)*1);position:relative;flex:1;min-height:0;display:flex;flex-direction:column;box-shadow:0 calc(var(--u)*.3) calc(var(--u)*.8) rgba(28,74,55,.08)}
+.dm .st{text-align:center;font-weight:900;font-size:calc(var(--u)*1.6);color:var(--g)}
+.rl{position:relative;height:calc(var(--u)*3.4);margin:calc(var(--u)*.7) 0 0}
+.rl .ln{position:absolute;left:0;right:0;top:calc(var(--u)*.7);height:calc(var(--u)*.45);border-radius:9px;background:#c8d8d0}
+.sl{position:absolute;top:calc(var(--u)*-.2);left:50%;width:0;transition:left 1.1s cubic-bezier(.5,0,.3,1)}
+.sl b{position:absolute;left:calc(var(--u)*-2.4);top:0;width:calc(var(--u)*4.8);height:calc(var(--u)*1.7);border-radius:calc(var(--u)*.5);background:var(--g)}
+.sl u{position:absolute;left:calc(var(--u)*-.35);top:calc(var(--u)*1.6);width:calc(var(--u)*.7);height:calc(var(--u)*.9);background:var(--g);border-radius:0 0 3px 3px}
+.sl em{position:absolute;left:0;top:calc(var(--u)*2.4);width:0;height:0;opacity:0;font-style:normal}
+.sl em s{position:absolute;left:calc(var(--u)*-.2);width:calc(var(--u)*.4);height:calc(var(--u)*.55);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#4aa3d8;animation:s8d .6s linear infinite}
+.sl em s:nth-child(2){animation-delay:.2s}.sl em s:nth-child(3){animation-delay:.4s}
+.sl.pump em{opacity:1}
+@keyframes s8d{from{transform:translateY(0);opacity:1}to{transform:translateY(calc(var(--u)*2.4));opacity:0}}
+.pots{display:grid;grid-template-columns:repeat(3,1fr);flex:1;min-height:0;align-items:end;justify-items:center}
+.pt{display:flex;flex-direction:column;align-items:center;padding:calc(var(--u)*.7) calc(var(--u)*1.6) calc(var(--u)*.6);border:calc(var(--u)*.2) dashed transparent;border-radius:calc(var(--u)*1.2);transition:border-color .3s}
+.pt.tg{border-color:#d98a2b}
+.pt svg{width:calc(var(--u)*8.4);height:auto;display:block}
+.pt .lb{font-size:calc(var(--u)*1.45);font-weight:700;color:var(--g);margin-top:calc(var(--u)*.2)}
+.pt .lb b{margin-left:.2em}
+.pt .mb{width:calc(var(--u)*13);height:calc(var(--u)*.7);border-radius:9px;background:#e1e8e4;margin-top:calc(var(--u)*.4);overflow:hidden}
+.pt .mb i{display:block;height:100%;width:0;background:var(--g2);transition:width .3s,background .3s}
+.pt .mb i.lo{background:#c9a24a}
+.dm .sp{position:absolute;right:calc(var(--u)*1.2);bottom:calc(var(--u)*.5);color:#8a9a94;font-size:calc(var(--u)*1.05)}
+.s8t{text-align:center;font-size:calc(var(--u)*1.5);color:var(--g);font-weight:700;margin-top:calc(var(--u)*.2)}
+.s8t b{font-weight:900}
+@media (max-width:760px){.fl8{flex-wrap:wrap;gap:calc(var(--u)*3) calc(var(--u)*1.5);margin-top:calc(var(--u)*3)}.fl8 .stp{flex:0 0 30%}.fl8 .chev,.lpw{display:none}.fl8 p{font-size:calc(var(--u)*3)}.fl8 h3{font-size:calc(var(--u)*4)}.fl8 .c{font-size:calc(var(--u)*2.6);width:calc(var(--u)*6);height:calc(var(--u)*6);top:calc(var(--u)*-3)}.dm{min-height:calc(var(--u)*60)}.dm .st{font-size:calc(var(--u)*3.4)}.pt svg{width:calc(var(--u)*14)}.pt .lb{font-size:calc(var(--u)*2.8)}.pt .mb{width:calc(var(--u)*22)}.s8t{font-size:calc(var(--u)*3)}.sl b{width:calc(var(--u)*9);left:calc(var(--u)*-4.5);height:calc(var(--u)*3)}}
+@media (prefers-reduced-motion:reduce){.sl{transition:none}.sl em s{animation:none}}
+/* pairs */
+.pairs{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);flex:1;min-height:0}
+.pairs .row{display:grid;grid-template-columns:1fr calc(var(--u)*3) 1fr;align-items:stretch;gap:calc(var(--u)*.8);flex:1}
+.pairs .row.h{flex:0 0 auto;font-weight:900;font-size:calc(var(--u)*1.6);color:var(--mut)}
+.pairs .row.h span:nth-child(3){color:var(--g2)}
+.pairs .card{display:flex;flex-direction:column;justify-content:center;padding:calc(var(--u)*.9) calc(var(--u)*1.4)}
+.pairs .card h3{font-size:calc(var(--u)*1.7);margin:0}.pairs .card p{font-size:calc(var(--u)*1.35)}
+.pairs .q{background:#fff3e6;border-color:#f3d3b3}.pairs .q h3{color:#a8561a}
+.pairs .a{background:#eaf5ee;border-color:#c5e2d1}
+.pairs .mid{display:grid;place-items:center;color:var(--o);font-weight:900;font-size:calc(var(--u)*2.4)}
+/* results */
+.res{display:grid;grid-template-columns:1fr 1.15fr;gap:calc(var(--u)*3);flex:1;min-height:0;align-items:start}
+table{border-collapse:collapse;width:100%;font-size:calc(var(--u)*1.55)}
+th,td{padding:calc(var(--u)*.8) calc(var(--u)*1);text-align:center;border-bottom:calc(var(--u)*.1) solid var(--line)}
+th{background:var(--g);color:#fff}
+.chart{background:#fff;border:calc(var(--u)*.15) solid var(--line);border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.4)}
+.legend{display:flex;gap:calc(var(--u)*1.6);font-size:calc(var(--u)*1.25);color:var(--mut);margin-bottom:calc(var(--u)*1)}
+.legend i,.b i{display:inline-block;width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);border-radius:3px;margin-right:calc(var(--u)*.4);vertical-align:-.1em}
+.c1{background:#9bc7b0}.c2{background:#58a47c}.c3{background:var(--g)}
+.r3{display:grid;grid-template-columns:calc(var(--u)*6) 1fr;gap:calc(var(--u)*.3) calc(var(--u)*1);align-items:center;margin-bottom:calc(var(--u)*1)}
+.r3 b{grid-row:span 3;font-size:calc(var(--u)*1.5)}
+.bar{height:calc(var(--u)*1.1);background:#e7eee9;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%}
+.small{font-size:calc(var(--u)*1.25);color:var(--mut)}
+/* closing */
+.s12{padding:0;flex-direction:row}
+.s12 .l{flex:1;padding:calc(var(--u)*3.6) calc(var(--u)*4.2);display:flex;flex-direction:column}
+.s12 .r{flex:0 0 36%;background:var(--g);color:#fff;display:grid;place-content:center;text-align:center;gap:calc(var(--u)*1.4)}
+.s12 .r b{font-size:calc(var(--u)*4);line-height:1.3}.s12 .r span{font-size:calc(var(--u)*2);color:#d6ebdf}
+.s12 ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:calc(var(--u)*1)}
+.s12 li{font-size:calc(var(--u)*1.7)}
+/* controls */
+.bar-ctl{position:fixed;left:0;right:0;bottom:0;height:56px;background:#112b25;color:#fff;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:8}
+.bar-ctl .t{font-weight:700;font-size:.95rem;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-ctl button,.bar-ctl a{font:inherit;font-size:.9rem;color:#fff;background:transparent;border:2px solid #2c5a4d;border-radius:10px;padding:0 12px;height:38px;display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.bar-ctl button:hover,.bar-ctl a:hover{background:#1f4a3f}
+.bar-ctl button:focus-visible,.bar-ctl a:focus-visible{outline:3px solid #7fd1a5;outline-offset:2px}
+.bar-ctl button:disabled{opacity:.4;cursor:default}
+#cnt{color:#9fc4b6;font-size:.9rem;min-width:4.5em;text-align:center}
+@media (max-width:760px){
+  .stage{width:100vw;height:calc(100dvh - 56px);aspect-ratio:auto;--u:2.5cqw}
+  .slide{overflow-y:auto;padding:calc(var(--u)*2.6) calc(var(--u)*2.4) calc(var(--u)*4)}
+  .g3,.g4,.two,.res,.s1,.s12{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+  .s1,.s12{flex-direction:column;overflow-y:auto}
+  .s1 .l{flex:none;padding:calc(var(--u)*4) calc(var(--u)*3)}
+  .s1 .l h2{margin-top:calc(var(--u)*3)}.s1 .l .tail{margin-top:calc(var(--u)*3)}
+  .s1 .r{flex:none;padding:calc(var(--u)*3)}.s1 .r .img{flex:none;aspect-ratio:1/1}
+  .s12 .l{flex:none;padding:calc(var(--u)*3)}.s12 .r{flex:none;padding:calc(var(--u)*5)}
+  .hd{flex-wrap:wrap}.hd .n{font-size:calc(var(--u)*5)}.hd h2{font-size:calc(var(--u)*3.6)}
+  .card h3{font-size:calc(var(--u)*2.2)}.card p,.note,.s12 li,table{font-size:calc(var(--u)*1.85)}
+  .banner{font-size:calc(var(--u)*2.4);grid-column:span 2;padding:calc(var(--u)*2)}
+  .two{display:flex;flex-direction:column}
+  .img{height:calc(var(--u)*50)}.img.tall{height:calc(var(--u)*60)}
+  .arch{grid-template-columns:1fr;gap:calc(var(--u)*1)}.arr{transform:rotate(90deg);font-size:calc(var(--u)*3.5)}
+  .box b{font-size:calc(var(--u)*2.2)}.box span{font-size:calc(var(--u)*1.8)}.box.core b{font-size:calc(var(--u)*3.4)}.box.core span{font-size:calc(var(--u)*1.9)}
+  .flow{grid-template-columns:1fr 1fr}
+  .chips span{font-size:calc(var(--u)*1.8)}
+  .pairs .row{grid-template-columns:1fr calc(var(--u)*3.4) 1fr}.pairs .card h3{font-size:calc(var(--u)*2)}.pairs .card p{font-size:calc(var(--u)*1.7)}
+  .pairs .row.h{font-size:calc(var(--u)*1.9)}
+  .r3 b{font-size:calc(var(--u)*1.9)}.legend{font-size:calc(var(--u)*1.7)}.small{font-size:calc(var(--u)*1.7)}
+  .hm,#fs{display:none!important}
+  .bar-ctl .t{display:none}.bar-ctl{justify-content:space-between;padding:0 6px;gap:4px}.bar-ctl button,.bar-ctl a{padding:0 8px;font-size:.84rem}#cnt{min-width:3.4em;font-size:.82rem}
+  .s1 .r small{font-size:calc(var(--u)*1.8)}
+  .slide>*{flex-shrink:0}
+  .body,.arch,.pairs,.two,.res,.pairs .row,.pts{flex:none;min-height:auto}
+  .grid{grid-auto-rows:auto!important}
+  .pics{height:calc(var(--u)*31)}
+  .pics .img{height:100%}
+  .two>.img.tall{height:auto;width:100%;aspect-ratio:640/778}
+}
+@media (prefers-reduced-motion:reduce){.slide,#prog{transition:none}}
+</style></head><body><div id="prog"></div><div class="wrapper"><div class="stage"><section class="slide s1"><div class="l"><h1>讓綠意<br>蔓延吧</h1><h2>ESP32 智慧自動化盆栽澆水系統</h2><p>自動定位・濕度感測・遠端控制</p><p class="tail">專題成果簡報</p></div><div class="r"><div class="img"><img src="img/device.jpg" alt="智慧澆水系統實機：上層為滑軌與三盆植物，下層為控制電路與水箱" style="object-position:center"></div><small>指導老師：余奕達</small></div></section><section class="slide"><div class="hd"><span class="n">02</span><div><h2>專題動機與簡介</h2><p>從日常照護問題出發，讓澆水變得更智慧</p></div></div><div class="body"><div class="grid g3"><div class="card"><h3>忘記澆水</h3><p>生活忙碌或外出時，容易忽略盆栽的水分需求。</p></div><div class="card"><h3>每盆需求不同</h3><p>不同盆栽的土壤乾燥程度不一樣，不適合一律定時澆水。</p></div><div class="card"><h3>澆水不易拿捏</h3><p>澆水不足可能缺水；澆水過多也可能造成積水與根部問題。</p></div></div><div class="note"><b>我們的解決方向</b>以 ESP32 整合土壤濕度感測、紅外線定位、步進馬達滑軌與水泵，讓單一出水口自動移動到需要澆水的盆栽前，並可透過手機或電腦遠端監控與操作。</div></div></section><section class="slide"><div class="hd"><span class="n">03</span><div><h2>想達成的目標</h2><p>把照顧多盆植物這件事，交給自動化系統</p></div></div><div class="body"><div class="grid g4"><div class="card"><span class="no">01</span><h3>自動判斷</h3><p>偵測每盆土壤濕度，自動找出需要澆水的盆栽</p></div><div class="card"><span class="no">02</span><h3>一管三盆</h3><p>單一出水口移動到各盆，不必每盆各配水泵</p></div><div class="card"><span class="no">03</span><h3>遠端掌握</h3><p>手機或電腦即時查看狀態，也能手動控制</p></div><div class="card"><span class="no">04</span><h3>主動通知</h3><p>澆水與重要事件即時推播提醒，不必一直盯著看</p></div></div><div class="note"><b>目標</b>讓植物得到剛剛好的水量，使用者也不必天天照顧。</div></div></section><section class="slide"><div class="hd"><span class="n">04</span><div><h2>七大核心功能</h2><p>自動偵測、定位、澆水，並可遠端監控與手動介入</p></div></div><div class="body"><div class="grid g4" style="flex:1;grid-auto-rows:1fr"><div class="card"><span class="no">01</span><h3>自動偵測濕度</h3><p>持續監測三盆土壤，過乾即啟動</p></div><div class="card"><span class="no">02</span><h3>自動移動定位</h3><p>滑塊移至該盆上方並精準停位</p></div><div class="card"><span class="no">03</span><h3>智慧循環澆水</h3><p>澆 10 秒、等 30 秒，再重新偵測</p></div><div class="card"><span class="no">04</span><h3>遠端網頁監控</h3><p>手機或電腦查看濕度、位置與水泵</p></div><div class="card"><span class="no">05</span><h3>手動控制</h3><p>網頁手動移動滑塊、開關水泵</p></div><div class="card"><span class="no">06</span><h3>安全防呆</h3><p>移動時水泵鎖定，抽水時不移動</p></div><div class="card"><span class="no">07</span><h3>即時推播</h3><p>每 30 秒狀態報告，異常即時通知</p></div><div class="banner">一台機器<br>照顧多盆植物</div></div></div></section><section class="slide"><div class="hd"><span class="n">05</span><div><h2>手機即時推播通知</h2><p>讓使用者不必一直開啟網頁，也能掌握系統狀況</p></div></div><div class="two" style="grid-template-columns:.8fr 1.2fr"><div class="img tall" style="justify-self:center;aspect-ratio:640/778;max-width:100%;background:#000"><img src="img/ntfy.jpg" alt="ntfy 手機通知截圖，顯示定時狀態與澆水未完成警示"></div><div class="pts"><div class="card"><h3>定時狀態回報</h3><p>系統每 30 秒傳送一次狀態資訊。</p></div><div class="card"><h3>事件通知</h3><p>開始澆水、澆水完成或發生異常時，推播提醒使用者。</p></div><div class="card"><h3>通知內容</h3><p>包含目前位置、水泵狀態，以及三盆植物的濕度資訊。</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">06</span><div><h2>系統架構</h2><p>ESP32 作為控制核心，整合感測、移動、供水與網路功能</p></div></div><div class="body"><div class="arch"><div class="col"><div class="box"><b>土壤濕度感測器 ×3</b><span>讀取各盆土壤濕度</span></div><div class="box"><b>紅外線感測器 ×3</b><span>回報位置訊號</span></div></div><div class="arr">➜</div><div class="box core"><b>ESP32</b><span>資料判斷・流程控制<br>網頁伺服器・Wi-Fi</span></div><div class="arr">➜</div><div class="col"><div class="box out"><b>步進馬達＋皮帶滑軌</b><span>移動出水口</span></div><div class="box out"><b>繼電器＋水泵</b><span>控制出水</span></div></div></div><div class="note">Wi-Fi 網路連線：提供手機／電腦網頁監控，並透過 ntfy 服務發送推播通知。</div></div></section><section class="slide"><div class="hd"><span class="n">07</span><div><h2>軟體與網路技術</h2><p>控制程式、網頁介面與推播服務串接</p></div></div><div class="body"><div class="grid g3" style="flex:1;grid-auto-rows:1fr"><div class="card"><h3>Arduino IDE</h3><p>撰寫程式並上傳至 ESP32。</p></div><div class="card"><h3>HTML / CSS / JavaScript</h3><p>設計手機與電腦可使用的網頁操作介面。</p></div><div class="card"><h3>ESP32 網頁伺服器</h3><p>提供即時狀態查詢與手動控制功能。</p></div><div class="card"><h3>Wi-Fi 連線</h3><p>讓 ESP32 與使用者裝置透過網路交換資訊，並以 NTP 同步時間。</p></div><div class="card"><h3>ntfy 推播服務</h3><p>定時回報狀態，並在澆水或異常時通知使用者。</p></div><div class="card"><h3>Blynk 手機儀表板</h3><p>提供手機端儀表板，遠端查看狀態與操作。</p></div></div></div></section><section class="slide s8" id="s8"><div class="hd"><span class="n">08</span><div><h2>自動運作流程</h2><p>由濕度偵測開始，依序完成定位、澆水與再次確認</p></div></div><div class="body s8b"><div class="fl8"><div class="stp" data-k="0"><span class="c">01</span><div class="cd"><h3>偵測</h3><p>讀取三盆植物<br>的土壤濕度</p><i class="pg"></i></div></div><i class="chev">❯</i><div class="stp" data-k="1"><span class="c">02</span><div class="cd"><h3>判斷</h3><p>找出低於設定值<br>的盆栽</p><i class="pg"></i></div></div><i class="chev">❯</i><div class="stp" data-k="2"><span class="c">03</span><div class="cd"><h3>定位</h3><p>滑塊移動至<br>目標盆栽位置</p><i class="pg"></i></div></div><i class="chev">❯</i><div class="stp" data-k="3"><span class="c">04</span><div class="cd"><h3>澆水</h3><p>啟動水泵，<br>澆水約 10 秒</p><i class="pg"></i></div></div><i class="chev">❯</i><div class="stp" data-k="4"><span class="c">05</span><div class="cd"><h3>等待</h3><p>回到中間位置，<br>等待約 30 秒</p><i class="pg"></i></div></div><i class="chev">❯</i><div class="stp" data-k="5"><span class="c">06</span><div class="cd"><h3>再檢測</h3><p>重新讀取濕度，<br>必要時再次澆水</p><i class="pg"></i></div></div></div><div class="lpw"><div class="lp"><span>仍偏乾 → 再次定位、澆水</span></div></div><div class="dm"><div class="st" id="s8st">偵測：讀取三盆植物的土壤濕度</div><div class="rl"><div class="ln"></div><div class="sl" id="s8sl"><b></b><u></u><em><s></s><s></s><s></s></em></div></div><div class="pots"><div class="pt" data-i="0"><svg viewBox="0 0 100 64" aria-hidden="true"><path d="M50 30V16" stroke="#3b7a52" stroke-width="3" fill="none"/><ellipse cx="38" cy="14" rx="15" ry="7" transform="rotate(-18 38 14)" fill="#3f8d5e"/><ellipse cx="62" cy="12" rx="15" ry="7" transform="rotate(16 62 12)" fill="#2f7a4f"/><rect x="18" y="28" width="64" height="8" rx="2" fill="#9c4d26"/><path d="M23 36H77L71 62H29Z" fill="#b86d3f"/></svg><div class="lb">植物 1　<b>--%</b></div><div class="mb"><i></i></div></div><div class="pt" data-i="1"><svg viewBox="0 0 100 64" aria-hidden="true"><path d="M50 30V16" stroke="#3b7a52" stroke-width="3" fill="none"/><ellipse cx="38" cy="14" rx="15" ry="7" transform="rotate(-18 38 14)" fill="#3f8d5e"/><ellipse cx="62" cy="12" rx="15" ry="7" transform="rotate(16 62 12)" fill="#2f7a4f"/><rect x="18" y="28" width="64" height="8" rx="2" fill="#9c4d26"/><path d="M23 36H77L71 62H29Z" fill="#b86d3f"/></svg><div class="lb">植物 2　<b>--%</b></div><div class="mb"><i></i></div></div><div class="pt" data-i="2"><svg viewBox="0 0 100 64" aria-hidden="true"><path d="M50 30V16" stroke="#3b7a52" stroke-width="3" fill="none"/><ellipse cx="38" cy="14" rx="15" ry="7" transform="rotate(-18 38 14)" fill="#3f8d5e"/><ellipse cx="62" cy="12" rx="15" ry="7" transform="rotate(16 62 12)" fill="#2f7a4f"/><rect x="18" y="28" width="64" height="8" rx="2" fill="#9c4d26"/><path d="M23 36H77L71 62H29Z" fill="#b86d3f"/></svg><div class="lb">植物 3　<b>--%</b></div><div class="mb"><i></i></div></div></div><small class="sp">示範動畫已加速</small></div><div class="small s8t"><b>持續循環：</b>若再次偵測仍低於設定值，系統會重新定位並澆水，直到濕度達到設定範圍。</div></div></section><section class="slide"><div class="hd"><span class="n">09</span><div><h2>遠端網頁監控與手動控制</h2><p>透過網頁與 Blynk 手機儀表板掌握系統狀態，必要時可人工介入</p></div></div><div class="two" style="grid-template-columns:1.1fr .9fr"><div class="pics" style="display:flex;gap:calc(var(--u)*1.6);min-height:0;justify-content:center"><div class="img tall" style="aspect-ratio:517/1200;flex:0 1 auto;height:100%"><img src="img/web.jpg" alt="網頁儀表板截圖"></div><div class="img tall" style="aspect-ratio:640/885;flex:0 1 auto;height:100%"><img src="img/blynk.jpg" alt="Blynk 手機儀表板截圖"></div></div><div class="pts"><div class="card"><h3>即時狀態</h3><p>時間、目前位置、滑塊移動與水泵狀態。</p></div><div class="card"><h3>盆栽資訊</h3><p>顯示各盆濕度、ADC 數值與乾燥／正常狀態。</p></div><div class="card"><h3>手動操作</h3><p>可指定位置 1～3、停止滑塊，並手動開關水泵。</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">10</span><div><h2>問題與解決</h2><p>從實際照護的困擾，對應到系統的設計</p></div></div><div class="pairs"><div class="row h"><span>遇到的問題</span><span></span><span>我們的解法</span></div><div class="row"><div class="card q"><h3>每盆需水量不同</h3><p>定時澆水容易過多或不足</p></div><div class="mid">➜</div><div class="card a"><h3>各盆獨立判斷</h3><p>每盆偵測自己的濕度，只替偏乾的盆栽澆水</p></div></div><div class="row"><div class="card q"><h3>一次澆水難以拿捏</h3><p>澆太多會積水，澆太少仍然缺水</p></div><div class="mid">➜</div><div class="card a"><h3>澆水後再確認</h3><p>澆水約 10 秒、等待約 30 秒，再重新偵測是否達標</p></div></div><div class="row"><div class="card q"><h3>移動與出水同時發生</h3><p>出水位置還在移動，水可能澆錯地方</p></div><div class="mid">➜</div><div class="card a"><h3>動作安全互鎖</h3><p>水泵運轉時滑塊不移動，滑塊移動時水泵不出水</p></div></div><div class="row"><div class="card q"><h3>人不在現場</h3><p>看不到植物狀況，也無法即時處理</p></div><div class="mid">➜</div><div class="card a"><h3>網頁監控與手機推播</h3><p>遠端查看狀態與手動控制，重要事件由 ntfy 通知</p></div></div></div></section><section class="slide"><div class="hd"><span class="n">11</span><div><h2>實測結果</h2><p>依海報紀錄，觀察約 1 分鐘內三盆植物的濕度變化</p></div></div><div class="body"><div class="res"><div><table><tr><th>時間</th><th>植物1</th><th>植物2</th><th>植物3</th></tr><tr><td>15:47:57</td><td>83%</td><td>82%</td><td>80%</td></tr><tr><td>15:48:30</td><td>93%</td><td>90%</td><td>88%</td></tr><tr><td>15:49:03</td><td>95%</td><td>92%</td><td>91%</td></tr></table></div><div class="chart" role="img" aria-label="三盆植物三個時間點的濕度長條圖，數值同左表"><div class="legend"><span><i class="c1"></i>15:47:57</span><span><i class="c2"></i>15:48:30</span><span><i class="c3"></i>15:49:03</span></div><div class="r3"><b>植物1</b><div class="bar"><i class="c1" style="width:83%"></i></div><div class="bar"><i class="c2" style="width:93%"></i></div><div class="bar"><i class="c3" style="width:95%"></i></div></div><div class="r3"><b>植物2</b><div class="bar"><i class="c1" style="width:82%"></i></div><div class="bar"><i class="c2" style="width:90%"></i></div><div class="bar"><i class="c3" style="width:92%"></i></div></div><div class="r3"><b>植物3</b><div class="bar"><i class="c1" style="width:80%"></i></div><div class="bar"><i class="c2" style="width:88%"></i></div><div class="bar"><i class="c3" style="width:91%"></i></div></div></div></div><div class="note"><b>觀察重點</b>紀錄顯示三盆濕度約由 80～83% 上升至 91～95%，系統可持續回報土壤狀態。</div><div class="small">註：以上為海報所列實測紀錄；不同土壤、感測器與環境條件可能造成讀值差異。</div></div></section><section class="slide s12"><div class="l"><div class="hd"><span class="n">12</span><div><h2>結論與未來展望</h2><p>讓科技協助照顧植物，讓綠意持續延伸</p></div></div><div class="body"><p style="margin:0;font-size:calc(var(--u)*1.8)">本專題結合感測技術、自動化控制與網路通訊，完成一套能依照土壤濕度移動定位並自動澆水的智慧系統。</p><ul><li>一台裝置照顧多盆植物，減少逐盆檢查的負擔</li><li>透過網頁與推播，讓使用者遠端掌握系統狀態</li><li>未來可擴充更多盆栽、人工光源與攝影機</li><li>開發中累積軟硬體整合與測試修正的經驗</li></ul></div></div><div class="r"><b>讓綠意<br>蔓延吧</b><span>謝謝聆聽</span></div></section></div></div><div class="bar-ctl"><span class="t">讓綠意蔓延吧｜智慧澆水系統簡報</span><a href="index.html">網站</a><button type="button" id="pv">‹ 上一頁</button><span id="cnt">1 / 12</span><button type="button" id="nx">下一頁 ›</button><button type="button" id="fs">全螢幕</button><a href="green-spread.pptx" download="讓綠意蔓延吧.pptx"><span class="hm">下載 </span>PPTX</a></div><script>(function(){var S=[].slice.call(document.querySelectorAll(".slide")),i=0,cnt=document.getElementById("cnt"),prog=document.getElementById("prog"),pv=document.getElementById("pv"),nx=document.getElementById("nx");
+function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach(function(s,k){s.classList.toggle("on",k===i);s.setAttribute("aria-hidden",k!==i);if(k===i)s.scrollTop=0});cnt.textContent=(i+1)+" / "+S.length;prog.style.width=((i+1)/S.length*100)+"%";pv.disabled=i===0;nx.disabled=i===S.length-1;try{history.replaceState(null,"","#"+(i+1))}catch(e){}}
+pv.onclick=function(){go(i-1)};nx.onclick=function(){go(i+1)};
+var fs=document.getElementById("fs");if(!document.fullscreenEnabled){fs.style.display="none"}else{fs.onclick=function(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen()}}
+document.addEventListener("keydown",function(e){var k=e.key;if(k==="ArrowRight"||k==="PageDown"||k===" "||k==="ArrowDown"){e.preventDefault();go(i+1)}else if(k==="ArrowLeft"||k==="PageUp"||k==="ArrowUp"){e.preventDefault();go(i-1)}else if(k==="Home")go(0);else if(k==="End")go(S.length-1);else if(k==="f"||k==="F")fs.click()});
+var x0=null,y0=null,st=document.querySelector(".stage");st.addEventListener("touchstart",function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});st.addEventListener("touchend",function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)go(i+(dx<0?1:-1))},{passive:true});
+function fromHash(){var h=parseInt((location.hash||"").slice(1),10);go(isNaN(h)?0:h-1)}window.addEventListener("hashchange",fromHash);fromHash()})();</script><script>(function(){
+var sec=document.getElementById("s8");if(!sec)return;
+var stp=[].slice.call(sec.querySelectorAll(".stp")),chv=[].slice.call(sec.querySelectorAll(".chev")),pts=[].slice.call(sec.querySelectorAll(".pt")),sl=document.getElementById("s8sl"),st=document.getElementById("s8st"),lp=sec.querySelector(".lp");
+var LOW=30,OK=60,POS=[16.667,50,83.333],gen=0,m=[26,72,68];
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function view(){pts.forEach(function(p,i){var v=Math.round(m[i]);p.querySelector(".lb b").textContent=v+"%";var b=p.querySelector(".mb i");b.style.width=v+"%";b.className=v<OK?"lo":""})}
+function act(k){stp.forEach(function(s,i){s.classList.toggle("act",i===k);s.classList.toggle("fut",k>=0&&i>k)});chv.forEach(function(c,i){c.classList.toggle("fut",k>=0&&i>=k)});stp.forEach(function(s){s.querySelector(".pg").style.transform="scaleX(0)"})}
+function prog(k,f){stp[k].querySelector(".pg").style.transform="scaleX("+f+")"}
+function to(i){sl.style.left=POS[i]+"%"}
+function tgt(i){pts.forEach(function(p,j){p.classList.toggle("tg",j===i)})}
+function reset(){m=[26,72,68];view();act(-1);tgt(-1);lp.classList.remove("on");sl.classList.remove("pump");to(1);st.textContent="偵測：讀取三盆植物的土壤濕度"}
+async function run(g){
+ var W=async function(ms){await sleep(ms);if(g!==gen)throw 0};
+ try{while(true){
+  reset();await W(700);
+  act(0);st.textContent="偵測：讀取三盆植物的土壤濕度";await W(1500);
+  act(1);var i=m.findIndex(function(v){return v<=LOW});st.textContent="判斷：植物 "+(i+1)+" 濕度 "+Math.round(m[i])+"%，低於設定值 "+LOW+"%";tgt(i);await W(1600);
+  var r=0;
+  while(m[i]<OK&&r<10){r++;
+   lp.classList.remove("on");
+   act(2);st.textContent="定位：滑塊移動至植物 "+(i+1);to(i);await W(1500);
+   act(3);sl.classList.add("pump");
+   for(var t=10;t>=0;t--){st.textContent="澆水：水泵啟動，約 10 秒（剩 "+t+" 秒）";prog(3,(10-t)/10);if(t<10){m[i]=Math.min(100,m[i]+2.1);view()}await W(t?330:500)}
+   sl.classList.remove("pump");tgt(-1);
+   act(4);to(1);
+   for(var w=30;w>=0;w-=3){st.textContent="等待：回到中間位置，約 30 秒（剩 "+w+" 秒）";prog(4,(30-w)/30);await W(w?280:300)}
+   act(5);var ok=m[i]>=OK;st.textContent="再檢測：植物 "+(i+1)+" 濕度 "+Math.round(m[i])+"%"+(ok?"，已達 "+OK+"% 以上，完成":"，仍低於 "+OK+"%，再次定位、澆水");
+   if(!ok){lp.classList.add("on");tgt(i)}
+   await W(2300)}
+  lp.classList.remove("on");tgt(-1);act(5);st.textContent="完成：三盆植物濕度皆在設定範圍，系統待機中";await W(3500);
+ }}catch(e){if(e!==0)throw e}
+}
+function sync(){if(sec.classList.contains("on")){gen++;run(gen)}else{gen++;reset()}}
+new MutationObserver(sync).observe(sec,{attributes:true,attributeFilter:["class"]});
+reset();if(sec.classList.contains("on"))sync();
+})();</script></body></html>
