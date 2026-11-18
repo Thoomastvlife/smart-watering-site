@@ -1801,7 +1801,7 @@
   <script>(function () {
       var sec = document.getElementById("s8"); if (!sec) return;
       var stp = [].slice.call(sec.querySelectorAll(".stp")), chv = [].slice.call(sec.querySelectorAll(".chev")), pts = [].slice.call(sec.querySelectorAll(".pt")), sl = document.getElementById("s8sl"), st = document.getElementById("s8st"), lp = sec.querySelector(".lp");
-      var LOW = 30, OK = 60, POS = [16.667, 50, 83.333], gen = 0, m = [26, 72, 68];
+      var LOW = 30, OK = 40, POS = [16.667, 50, 83.333], gen = 0, m = [26, 72, 68];
       function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms) }) }
       function view() { pts.forEach(function (p, i) { var v = Math.round(m[i]); p.querySelector(".lb b").textContent = v + "%"; var L = v <= 20 ? 0 : v <= 39 ? 1 : v <= 59 ? 2 : v <= 79 ? 3 : 4, bd = p.querySelector(".bd"); bd.textContent = ["乾燥", "偏乾", "適中", "潮濕", "過濕"][L]; bd.className = "bd s" + L; var b = p.querySelector(".mb i"); b.style.width = v + "%"; b.className = v < OK ? "lo" : "" }) }
       function act(k) { stp.forEach(function (s, i) { s.classList.toggle("act", i === k); s.classList.toggle("fut", k >= 0 && i > k) }); chv.forEach(function (c, i) { c.classList.toggle("fut", k >= 0 && i >= k) }); stp.forEach(function (s) { s.querySelector(".pg").style.transform = "scaleX(0)" }) }

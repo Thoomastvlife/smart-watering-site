@@ -1,5 +1,5 @@
 (function(){
-var X=[100,300,500],names=["第 1 盆","第 2 盆","第 3 盆"],LOW=30,OK=60,MAXR=10,m=[70,65,72],busy=false;
+var X=[100,300,500],names=["第 1 盆","第 2 盆","第 3 盆"],LOW=30,OK=40,MAXR=10,m=[70,65,72],busy=false;
 var $=function(id){return document.getElementById(id)};
 var car=$("carriage"),cards=$("potCards"),msg=$("msg");
 var sleep=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
