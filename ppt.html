@@ -703,6 +703,39 @@
       margin-left: .2em
     }
 
+    .pt .bd {
+      display: inline-block;
+      margin-left: .6em;
+      padding: 0 .6em;
+      border-radius: 99px;
+      font-size: .78em;
+      font-weight: 700;
+      vertical-align: .08em;
+      color: #fff;
+      background: #8a9a94;
+      transition: background .3s
+    }
+
+    .pt .bd.s0 {
+      background: #c0392b
+    }
+
+    .pt .bd.s1 {
+      background: #e07a2e
+    }
+
+    .pt .bd.s2 {
+      background: #2f8f5b
+    }
+
+    .pt .bd.s3 {
+      background: #1f8a8a
+    }
+
+    .pt .bd.s4 {
+      background: #2f6fb5
+    }
+
     .pt .mb {
       width: calc(var(--u)*13);
       height: calc(var(--u)*.7);
@@ -1554,7 +1587,7 @@
                   <rect x="18" y="28" width="64" height="8" rx="2" fill="#9c4d26" />
                   <path d="M23 36H77L71 62H29Z" fill="#b86d3f" />
                 </svg>
-                <div class="lb">植物 1　<b>--%</b></div>
+                <div class="lb">植物 1　<b>--%</b><span class="bd"></span></div>
                 <div class="mb"><i></i></div>
               </div>
               <div class="pt" data-i="1"><svg viewBox="0 0 100 64" aria-hidden="true">
@@ -1564,7 +1597,7 @@
                   <rect x="18" y="28" width="64" height="8" rx="2" fill="#9c4d26" />
                   <path d="M23 36H77L71 62H29Z" fill="#b86d3f" />
                 </svg>
-                <div class="lb">植物 2　<b>--%</b></div>
+                <div class="lb">植物 2　<b>--%</b><span class="bd"></span></div>
                 <div class="mb"><i></i></div>
               </div>
               <div class="pt" data-i="2"><svg viewBox="0 0 100 64" aria-hidden="true">
@@ -1574,7 +1607,7 @@
                   <rect x="18" y="28" width="64" height="8" rx="2" fill="#9c4d26" />
                   <path d="M23 36H77L71 62H29Z" fill="#b86d3f" />
                 </svg>
-                <div class="lb">植物 3　<b>--%</b></div>
+                <div class="lb">植物 3　<b>--%</b><span class="bd"></span></div>
                 <div class="mb"><i></i></div>
               </div>
             </div><small class="sp">示範動畫已加速</small>
@@ -1744,7 +1777,7 @@
             <p style="margin:0;font-size:calc(var(--u)*1.8)">本專題結合感測技術、自動化控制與網路通訊，完成一套能依照土壤濕度移動定位並自動澆水的智慧系統。</p>
             <ul>
               <li>透過網頁與推播，讓使用者遠端掌握系統狀態</li>
-              <li>開發中累積軟硬體整合與測試修正的經</li>
+              <li>開發中累積軟硬體整合與測試修正的經驗</li>
               <li>未來可擴充更多盆栽、人工光源與攝影機</li>
             </ul>
           </div>
@@ -1770,7 +1803,7 @@
       var stp = [].slice.call(sec.querySelectorAll(".stp")), chv = [].slice.call(sec.querySelectorAll(".chev")), pts = [].slice.call(sec.querySelectorAll(".pt")), sl = document.getElementById("s8sl"), st = document.getElementById("s8st"), lp = sec.querySelector(".lp");
       var LOW = 30, OK = 60, POS = [16.667, 50, 83.333], gen = 0, m = [26, 72, 68];
       function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms) }) }
-      function view() { pts.forEach(function (p, i) { var v = Math.round(m[i]); p.querySelector(".lb b").textContent = v + "%"; var b = p.querySelector(".mb i"); b.style.width = v + "%"; b.className = v < OK ? "lo" : "" }) }
+      function view() { pts.forEach(function (p, i) { var v = Math.round(m[i]); p.querySelector(".lb b").textContent = v + "%"; var L = v <= 20 ? 0 : v <= 39 ? 1 : v <= 59 ? 2 : v <= 79 ? 3 : 4, bd = p.querySelector(".bd"); bd.textContent = ["乾燥", "偏乾", "適中", "潮濕", "過濕"][L]; bd.className = "bd s" + L; var b = p.querySelector(".mb i"); b.style.width = v + "%"; b.className = v < OK ? "lo" : "" }) }
       function act(k) { stp.forEach(function (s, i) { s.classList.toggle("act", i === k); s.classList.toggle("fut", k >= 0 && i > k) }); chv.forEach(function (c, i) { c.classList.toggle("fut", k >= 0 && i >= k) }); stp.forEach(function (s) { s.querySelector(".pg").style.transform = "scaleX(0)" }) }
       function prog(k, f) { stp[k].querySelector(".pg").style.transform = "scaleX(" + f + ")" }
       function to(i) { sl.style.left = POS[i] + "%" }
