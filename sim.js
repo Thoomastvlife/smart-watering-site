@@ -11,7 +11,7 @@ function render(){m.forEach(function(v,i){v=Math.round(v);$("v"+i).textContent="
 function flags(a,b,c){$("cMove").className="chip"+(a?" on":"");$("cPump").className="chip"+(b?" on":"");$("cWait").className="chip"+(c?" on":"");$("drops").parentNode.classList.toggle("watering",b)}
 function say(t){msg.textContent=t}
 async function moveTo(i,l){flags(true,false,false);say("滑塊移動中，水泵已鎖定。");car.style.transform="translateX("+(X[i]-300)+"px)";await sleep(1200);$("pos").textContent="位置："+l;flags(false,false,false)}
-async function water(i){say("到達"+names[i]+"，水泵啟動，滑塊已鎖定。");flags(false,true,false);for(var k=0;k<10;k++){m[i]=Math.min(100,m[i]+2.5);render();await sleep(250)}flags(false,false,false)}
+async function water(i){say("到達"+names[i]+"，水泵啟動，滑塊已鎖定。");flags(false,true,false);for(var k=0;k<10&&m[i]<OK;k++){m[i]=Math.min(OK,m[i]+2.5);render();await sleep(250)}flags(false,false,false)}
 async function absorb(){flags(false,false,true);for(var s=30;s>0;s-=6){say("等待土壤吸收水分……（還有約 "+s+" 秒，示範已加速）");await sleep(1000)}}
 async function run(){if(busy)return;busy=true;render();
 while(true){var i=m.findIndex(function(v){return v<=LOW});if(i<0)break;var r=0;
