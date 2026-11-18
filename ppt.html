@@ -1822,7 +1822,7 @@
               lp.classList.remove("on");
               act(2); st.textContent = "定位：滑塊移動至植物 " + (i + 1); to(i); await W(1500);
               act(3); sl.classList.add("pump");
-              for (var t = 10; t >= 0; t--) { st.textContent = "澆水：水泵啟動，約 10 秒（剩 " + t + " 秒）"; prog(3, (10 - t) / 10); if (t < 10) { m[i] = Math.min(59, m[i] + 2.1); view() } await W(t ? 330 : 500) }
+              for (var t = 10; t >= 0; t--) { st.textContent = "澆水：水泵啟動，約 10 秒（剩 " + t + " 秒）"; prog(3, (10 - t) / 10); if (t < 10 && m[i] < OK) { m[i] = Math.min(OK, m[i] + 2.1); view() } await W(t ? 330 : 500); if (m[i] >= OK) break }
               sl.classList.remove("pump"); tgt(-1);
               act(4); to(1);
               for (var w = 30; w >= 0; w -= 3) { st.textContent = "等待：回到中間位置，約 30 秒（剩 " + w + " 秒）"; prog(4, (30 - w) / 30); await W(w ? 280 : 300) }
