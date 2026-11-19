@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>雲端數據與比例分析｜讓綠意蔓延吧</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .d1-section { max-width: 1120px; margin: 24px auto; padding: 0 16px; }
+    .d1-banner {
+      background: linear-gradient(135deg, #2E7D32, #43A047);
+      color: #fff;
+      padding: 24px 28px;
+      border-radius: 16px;
+      margin-bottom: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 18px rgba(46, 125, 50, 0.22);
+    }
+    .d1-banner h1 { font-size: 24px; margin: 0 0 6px 0; color: #fff; }
+    .d1-banner p { font-size: 14px; margin: 0; opacity: 0.92; }
+    .d1-refresh-btn {
+      background: #fff;
+      color: #2E7D32;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.15s;
+    }
+    .d1-refresh-btn:hover { transform: scale(1.03); }
+    .d1-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .d1-kpi {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      border-left: 5px solid #2E7D32;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+    .d1-kpi-title { font-size: 13px; color: #666; margin-bottom: 6px; }
+    .d1-kpi-num { font-size: 26px; font-weight: bold; color: #2E7D32; }
+    .d1-kpi-sub { font-size: 12px; color: #888; margin-top: 4px; }
+    .d1-charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .d1-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+    .d1-card h2 {
+      font-size: 17px;
+      color: #2E7D32;
+      margin: 0 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .d1-pie-box { position: relative; height: 250px; }
+    .d1-line-box { position: relative; height: 300px; }
+    .d1-table-wrap { overflow-x: auto; }
+    .d1-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .d1-table th, .d1-table td {
+      padding: 11px 12px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .d1-table th { background: #f4f8f5; color: #2E7D32; font-weight: bold; }
+    .d1-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .d1-ok { background: #e8f5e9; color: #2e7d32; }
+    .d1-warn { background: #ffebee; color: #c62828; }
+    .d1-error {
+      background: #ffebee;
+      color: #c62828;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div>
+      <a href="index.html">🌱 讓綠意蔓延吧</a>
+      <div>
+        <a href="motivation.html">動機與目標</a>
+        <a href="features.html">功能與推播</a>
+        <a href="architecture.html">系統架構</a>
+        <a href="flow.html">運作流程</a>
+        <a href="showcase.html">遠端監控</a>
+        <a href="solutions.html">問題與解決</a>
+        <a href="results.html">實測結果</a>
+        <a href="data.html" style="font-weight:bold;text-decoration:underline;">雲端數據</a>
+        <a href="conclusion.html">結論與展望</a>
+        <a href="ppt.html">簡報</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="d1-section">
+    <div class="d1-banner">
+      <div>
+        <h1>📊 Cloudflare D1 雲端數據與比例分析</h1>
+        <p id="statusText">正在從 Cloudflare D1 資料庫載入最新感測與澆水統計...</p>
+      </div>
+      <button class="d1-refresh-btn" onclick="loadD1Stats()">🔄 立即重新整理</button>
+    </div>
+
+    <div id="errBox" class="d1-error"></div>
+
+    <!-- KPI 數據摘要 -->
+    <div class="d1-kpi-grid">
+      <div class="d1-kpi">
+        <div class="d1-kpi-title">環境感測採樣總筆數</div>
+        <div class="d1-kpi-num" id="kpiLogs">-</div>
+        <div class="d1-kpi-sub">ESP32 每 60 秒自動寫入</div>
+      </div>
+      <div class="d1-kpi">
+        <div class="d1-kpi-title">累計自動澆水事件</div>
+        <div class="d1-kpi-num" id="kpiWater">-</div>
+        <div class="d1-kpi-sub" id="kpiRounds">累計噴水輪數：-</div>
+      </div>
+      <div class="d1-kpi">
+        <div class="d1-kpi-title">需水量最高盆栽（佔比）</div>
+        <div class="d1-kpi-num" id="kpiTopPlant">-</div>
+        <div class="d1-kpi-sub" id="kpiTopPct">佔總澆水次數比例：-</div>
+      </div>
+      <div class="d1-kpi">
+        <div class="d1-kpi-title">自動補水任務完成率</div>
+        <div class="d1-kpi-num" id="kpiRate">-</div>
+        <div class="d1-kpi-sub">濕度回升達標自動停止</div>
+      </div>
+    </div>
+
+    <!-- 三大數據比例圖表 -->
+    <div class="d1-charts-grid">
+      <div class="d1-card">
+        <h2>💧 各盆栽澆水次數比例</h2>
+        <div class="d1-pie-box"><canvas id="chartPlantRatio"></canvas></div>
+      </div>
+      <div class="d1-card">
+        <h2>🌡️ 歷史土壤濕度狀態分佈比例</h2>
+        <div class="d1-pie-box"><canvas id="chartHumidityRatio"></canvas></div>
+      </div>
+      <div class="d1-card">
+        <h2>✅ 澆水執行結果比例</h2>
+        <div class="d1-pie-box"><canvas id="chartStatusRatio"></canvas></div>
+      </div>
+    </div>
+
+    <!-- 歷史濕度變化折線圖 -->
+    <div class="d1-card" style="margin-bottom: 22px;">
+      <h2>📈 三盆栽土壤濕度歷史變化趨勢（最近 100 筆）</h2>
+      <div class="d1-line-box"><canvas id="chartTrend"></canvas></div>
+    </div>
+
+    <!-- 最近澆水明細表 -->
+    <div class="d1-card">
+      <h2>📋 最近自動澆水事件紀錄</h2>
+      <div class="d1-table-wrap">
+        <table class="d1-table">
+          <thead>
+            <tr>
+              <th>紀錄時間 (UTC+8)</th>
+              <th>盆栽編號</th>
+              <th>澆水前濕度</th>
+              <th>澆水後濕度</th>
+              <th>濕度提升幅度</th>
+              <th>執行輪數</th>
+              <th>執行狀態</th>
+            </tr>
+          </thead>
+          <tbody id="wateringBody">
+            <tr><td colspan="7" style="text-align:center;color:#999;">載入中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>© 2026 讓綠意蔓延吧｜智慧澆水系統 新北市立鶯歌高級工商職業學校 資訊科 版權所有</footer>
+
+  <script>
+    const WORKER_API = "https://watersystem-api.yt5044885.workers.dev/stats";
+    const chartInstances = {};
+
+    async function loadD1Stats() {
+      const errBox = document.getElementById("errBox");
+      try {
+        const res = await fetch(WORKER_API);
+        if (!res.ok) throw new Error("HTTP 狀態碼：" + res.status);
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || "讀取資料失敗");
+
+        errBox.style.display = "none";
+        document.getElementById("statusText").textContent =
+          "已連線 Cloudflare D1 資料庫｜最後更新：" + new Date().toLocaleTimeString() + "（每 30 秒自動更新）";
+        renderDashboard(data);
+      } catch (err) {
+        errBox.textContent = "⚠️ 無法取得雲端數據：" + err.message;
+        errBox.style.display = "block";
+      }
+    }
+
+    function renderDashboard(data) {
+      // 1. 計算各盆栽澆水比例
+      const pCounts = [0, 0, 0];
+      let totalWater = 0;
+      let totalRounds = 0;
+      (data.plantStats || []).forEach(item => {
+        if (item.plant_id >= 1 && item.plant_id <= 3) {
+          pCounts[item.plant_id - 1] = item.count;
+          totalWater += item.count;
+          totalRounds += (item.total_rounds || 0);
+        }
+      });
+
+      document.getElementById("kpiLogs").textContent = (data.humidityDist.total_rows || 0) + " 筆";
+      document.getElementById("kpiTotalWater") ? null : null;
+      document.getElementById("kpiWater").textContent = totalWater + " 次";
+      document.getElementById("kpiRounds").textContent = "累計噴水輪數：" + totalRounds + " 輪";
+
+      if (totalWater > 0) {
+        let maxIdx = 0;
+        if (pCounts[1] > pCounts[maxIdx]) maxIdx = 1;
+        if (pCounts[2] > pCounts[maxIdx]) maxIdx = 2;
+        const pct = ((pCounts[maxIdx] / totalWater) * 100).toFixed(1);
+        document.getElementById("kpiTopPlant").textContent = "盆栽 " + (maxIdx + 1);
+        document.getElementById("kpiTopPct").textContent = "佔總澆水次數比例：" + pct + "%";
+      } else {
+        document.getElementById("kpiTopPlant").textContent = "尚無紀錄";
+        document.getElementById("kpiTopPct").textContent = "佔總澆水次數比例：0%";
+      }
+
+      // 2. 完成率與狀態統計
+      const stLabels = [];
+      const stCounts = [];
+      let okCount = 0;
+      let stTotal = 0;
+      (data.statusStats || []).forEach(s => {
+        stLabels.push(s.status || "未知");
+        stCounts.push(s.count);
+        stTotal += s.count;
+        if (s.status === "完成") okCount += s.count;
+      });
+      document.getElementById("kpiRate").textContent =
+        stTotal > 0 ? ((okCount / stTotal) * 100).toFixed(1) + "%" : "-";
+
+      // 圖表 1：各盆栽澆水次數比例
+      drawPieChart("chartPlantRatio", "doughnut", ["盆栽 1", "盆栽 2", "盆栽 3"], pCounts, ["#4CAF50", "#2196F3", "#FF9800"]);
+
+      // 圖表 2：濕度區間比例 (乾燥 <=30%, 正常 31~59%, 潮濕 >=60%)
+      const hd = data.humidityDist;
+      drawPieChart(
+        "chartHumidityRatio",
+        "pie",
+        ["乾燥 (≤30%)", "正常 (31~59%)", "潮濕 (≥60%)"],
+        [hd.dry_count || 0, hd.normal_count || 0, hd.wet_count || 0],
+        ["#EF5350", "#FFCA28", "#26A69A"]
+      );
+
+      // 圖表 3：澆水執行結果比例
+      drawPieChart(
+        "chartStatusRatio",
+        "doughnut",
+        stLabels.length ? stLabels : ["尚無紀錄"],
+        stCounts.length ? stCounts : [1],
+        stCounts.length ? ["#2E7D32", "#E53935", "#FB8C00", "#8E24AA"] : ["#E0E0E0"]
+      );
+
+      // 圖表 4：濕度變化趨勢折線圖
+      const labels = (data.recentSensors || []).map(r => (r.recorded_at || "").slice(5, 16));
+      const h1Arr = (data.recentSensors || []).map(r => r.h1);
+      const h2Arr = (data.recentSensors || []).map(r => r.h2);
+      const h3Arr = (data.recentSensors || []).map(r => r.h3);
+
+      if (chartInstances.trend) chartInstances.trend.destroy();
+      chartInstances.trend = new Chart(document.getElementById("chartTrend"), {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            { label: "盆栽 1 (%)", data: h1Arr, borderColor: "#4CAF50", backgroundColor: "rgba(76,175,80,0.1)", tension: 0.3, pointRadius: 2 },
+            { label: "盆栽 2 (%)", data: h2Arr, borderColor: "#2196F3", backgroundColor: "rgba(33,150,243,0.1)", tension: 0.3, pointRadius: 2 },
+            { label: "盆栽 3 (%)", data: h3Arr, borderColor: "#FF9800", backgroundColor: "rgba(255,152,0,0.1)", tension: 0.3, pointRadius: 2 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { min: 0, max: 100 } }
+        }
+      });
+
+      // 明細表格
+      const tbody = document.getElementById("wateringBody");
+      if (!data.recentWaterings || !data.recentWaterings.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;">目前尚無自動澆水紀錄</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.recentWaterings.map(w => {
+        const diff = w.final_humidity - w.initial_humidity;
+        const diffText = (diff >= 0 ? "+" : "") + diff + "%";
+        const badgeClass = w.status === "完成" ? "d1-ok" : "d1-warn";
+        return `<tr>
+          <td>${w.recorded_at}</td>
+          <td><strong>🌿 盆栽 ${w.plant_id}</strong></td>
+          <td>${w.initial_humidity}%</td>
+          <td>${w.final_humidity}%</td>
+          <td>${diffText}</td>
+          <td>${w.rounds} 輪</td>
+          <td><span class="d1-badge ${badgeClass}">${w.status}</span></td>
+        </tr>`;
+      }).join("");
+    }
+
+    function drawPieChart(id, type, labels, values, colors) {
+      if (chartInstances[id]) chartInstances[id].destroy();
+      const total = values.reduce((a, b) => a + b, 0);
+      chartInstances[id] = new Chart(document.getElementById(id), {
+        type: type,
+        data: {
+          labels: labels,
+          datasets: [{ data: values, backgroundColor: colors, borderWidth: 2 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const val = ctx.raw || 0;
+                  const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+                  return ` ${ctx.label}: ${val} 筆 (${pct}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    loadD1Stats();
+    setInterval(loadD1Stats, 30000);
+  </script>
+</body>
+</html>
