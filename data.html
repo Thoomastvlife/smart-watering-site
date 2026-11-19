@@ -7,79 +7,216 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    .d1-section { max-width: 1120px; margin: 24px auto; padding: 0 16px; }
+    /* 統一深色森林主題與手機版排版修正 */
+    body.d1-page {
+      margin: 0;
+      padding: 0;
+      background: #0b1912 !important;
+      color: #e8f5e9 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+    }
+
+    /* 頂部導覽列（手機版支援單行橫向滑動，不換行跑版） */
+    .d1-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 25, 18, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(102, 187, 106, 0.25);
+      padding: 12px 16px;
+    }
+    .d1-nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .d1-brand {
+      color: #81c784 !important;
+      font-weight: 800;
+      font-size: 17px;
+      text-decoration: none !important;
+      white-space: nowrap;
+    }
+    .d1-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      max-width: 100%;
+      padding-bottom: 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .d1-links::-webkit-scrollbar { display: none; }
+    .d1-links a {
+      color: #c8e6c9 !important;
+      text-decoration: none !important;
+      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .d1-links a:hover {
+      background: rgba(102, 187, 106, 0.15);
+    }
+    .d1-links a.active {
+      background: #2e7d32;
+      color: #ffffff !important;
+      font-weight: bold;
+    }
+
+    /* 主內容區 */
+    .d1-section {
+      max-width: 1120px;
+      margin: 20px auto 40px;
+      padding: 0 14px;
+    }
+
+    /* 頂部綠色橫幅 */
     .d1-banner {
-      background: linear-gradient(135deg, #2E7D32, #43A047);
-      color: #fff;
-      padding: 24px 28px;
+      background: linear-gradient(135deg, #1b5e20, #2e7d32);
+      border: 1px solid rgba(129, 199, 132, 0.35);
+      color: #ffffff;
+      padding: 18px 20px;
       border-radius: 16px;
-      margin-bottom: 22px;
+      margin-bottom: 16px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 6px 18px rgba(46, 125, 50, 0.22);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
     }
-    .d1-banner h1 { font-size: 24px; margin: 0 0 6px 0; color: #fff; }
-    .d1-banner p { font-size: 14px; margin: 0; opacity: 0.92; }
+    .d1-banner h1 {
+      font-size: 20px;
+      margin: 0 0 4px 0;
+      color: #ffffff !important;
+      line-height: 1.3;
+    }
+    .d1-banner p {
+      font-size: 12px;
+      margin: 0;
+      color: #c8e6c9 !important;
+    }
     .d1-refresh-btn {
-      background: #fff;
-      color: #2E7D32;
+      background: #ffffff;
+      color: #1b5e20 !important;
       border: none;
-      padding: 10px 18px;
+      padding: 8px 14px;
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.15s;
+      font-size: 13px;
+      width: auto !important;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-    .d1-refresh-btn:hover { transform: scale(1.03); }
+    .d1-refresh-btn:active { transform: scale(0.97); }
+
+    /* KPI 數據摘要（手機版 2x2 並排，電腦版 4 欄並排） */
     .d1-kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 22px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 768px) {
+      .d1-kpi-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .d1-banner h1 { font-size: 24px; }
     }
     .d1-kpi {
-      background: #fff;
+      background: #13261c;
+      border: 1px solid rgba(102, 187, 106, 0.25);
+      border-left: 4px solid #4caf50;
       border-radius: 14px;
-      padding: 18px 20px;
-      border-left: 5px solid #2E7D32;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      padding: 14px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
-    .d1-kpi-title { font-size: 13px; color: #666; margin-bottom: 6px; }
-    .d1-kpi-num { font-size: 26px; font-weight: bold; color: #2E7D32; }
-    .d1-kpi-sub { font-size: 12px; color: #888; margin-top: 4px; }
+    .d1-kpi-title {
+      font-size: 12px;
+      color: #a5d6a7 !important;
+      margin-bottom: 6px;
+    }
+    .d1-kpi-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff !important;
+      line-height: 1.2;
+    }
+    .d1-kpi-sub {
+      font-size: 11px;
+      color: #81c784 !important;
+      margin-top: 4px;
+    }
+
+    /* 圖表網格 */
     .d1-charts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 18px;
-      margin-bottom: 22px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
     }
+    @media (min-width: 820px) {
+      .d1-charts-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* 深色卡片容器 */
     .d1-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      background: #13261c;
+      border: 1px solid rgba(102, 187, 106, 0.25);
+      color: #e8f5e9 !important;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
     .d1-card h2 {
-      font-size: 17px;
-      color: #2E7D32;
+      font-size: 16px;
+      color: #81c784 !important;
       margin: 0 0 14px 0;
       padding-bottom: 8px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid rgba(102, 187, 106, 0.2);
     }
-    .d1-pie-box { position: relative; height: 250px; }
-    .d1-line-box { position: relative; height: 300px; }
-    .d1-table-wrap { overflow-x: auto; }
-    .d1-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .d1-table th, .d1-table td {
-      padding: 11px 12px;
+    .d1-pie-box { position: relative; height: 230px; }
+    .d1-line-box { position: relative; height: 270px; }
+
+    /* 高對比明細表格 */
+    .d1-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .d1-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      min-width: 560px;
+    }
+    .d1-table th {
+      background: #1b3628;
+      color: #a5d6a7 !important;
+      font-weight: bold;
+      padding: 10px 12px;
       text-align: left;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid rgba(102, 187, 106, 0.3);
+      white-space: nowrap;
     }
-    .d1-table th { background: #f4f8f5; color: #2E7D32; font-weight: bold; }
+    .d1-table td {
+      padding: 10px 12px;
+      text-align: left;
+      color: #f1f8e9 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+    }
+    .d1-table tr:hover td {
+      background: rgba(102, 187, 106, 0.08);
+    }
+    .d1-table td strong {
+      color: #81c784 !important;
+    }
     .d1-badge {
       display: inline-block;
       padding: 3px 10px;
@@ -87,23 +224,34 @@
       font-size: 12px;
       font-weight: bold;
     }
-    .d1-ok { background: #e8f5e9; color: #2e7d32; }
-    .d1-warn { background: #ffebee; color: #c62828; }
+    .d1-ok { background: rgba(76, 175, 80, 0.25); color: #a5d6a7 !important; border: 1px solid #4caf50; }
+    .d1-warn { background: rgba(244, 67, 54, 0.25); color: #ffcdd2 !important; border: 1px solid #ef5350; }
+
     .d1-error {
-      background: #ffebee;
-      color: #c62828;
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid #ef5350;
+      color: #ffcdd2 !important;
       padding: 12px 16px;
       border-radius: 10px;
       margin-bottom: 16px;
       display: none;
+      font-size: 13px;
+    }
+    .d1-footer {
+      text-align: center;
+      color: #81c784 !important;
+      opacity: 0.75;
+      font-size: 12px;
+      padding: 20px 12px;
+      border-top: 1px solid rgba(102, 187, 106, 0.15);
     }
   </style>
 </head>
-<body>
-  <nav>
-    <div>
-      <a href="index.html">🌱 讓綠意蔓延吧</a>
-      <div>
+<body class="d1-page">
+  <nav class="d1-nav">
+    <div class="d1-nav-inner">
+      <a href="index.html" class="d1-brand">🌱 讓綠意蔓延吧</a>
+      <div class="d1-links">
         <a href="motivation.html">動機與目標</a>
         <a href="features.html">功能與推播</a>
         <a href="architecture.html">系統架構</a>
@@ -111,7 +259,7 @@
         <a href="showcase.html">遠端監控</a>
         <a href="solutions.html">問題與解決</a>
         <a href="results.html">實測結果</a>
-        <a href="data.html" style="font-weight:bold;text-decoration:underline;">雲端數據</a>
+        <a href="data.html" class="active">雲端數據</a>
         <a href="conclusion.html">結論與展望</a>
         <a href="ppt.html">簡報</a>
       </div>
@@ -124,17 +272,17 @@
         <h1>📊 Cloudflare D1 雲端數據與比例分析</h1>
         <p id="statusText">正在從 Cloudflare D1 資料庫載入最新感測與澆水統計...</p>
       </div>
-      <button class="d1-refresh-btn" onclick="loadD1Stats()">🔄 立即重新整理</button>
+      <button class="d1-refresh-btn" onclick="loadD1Stats()">🔄 立即更新</button>
     </div>
 
     <div id="errBox" class="d1-error"></div>
 
-    <!-- KPI 數據摘要 -->
+    <!-- KPI 數據摘要（手機版 2x2 並排） -->
     <div class="d1-kpi-grid">
       <div class="d1-kpi">
         <div class="d1-kpi-title">環境感測採樣總筆數</div>
         <div class="d1-kpi-num" id="kpiLogs">-</div>
-        <div class="d1-kpi-sub">ESP32 每 60 秒自動寫入</div>
+        <div class="d1-kpi-sub">每 60 秒自動寫入</div>
       </div>
       <div class="d1-kpi">
         <div class="d1-kpi-title">累計自動澆水事件</div>
@@ -142,14 +290,14 @@
         <div class="d1-kpi-sub" id="kpiRounds">累計噴水輪數：-</div>
       </div>
       <div class="d1-kpi">
-        <div class="d1-kpi-title">需水量最高盆栽（佔比）</div>
+        <div class="d1-kpi-title">需水量最高盆栽</div>
         <div class="d1-kpi-num" id="kpiTopPlant">-</div>
-        <div class="d1-kpi-sub" id="kpiTopPct">佔總澆水次數比例：-</div>
+        <div class="d1-kpi-sub" id="kpiTopPct">佔總澆水比例：-</div>
       </div>
       <div class="d1-kpi">
-        <div class="d1-kpi-title">自動補水任務完成率</div>
+        <div class="d1-kpi-title">自動補水完成率</div>
         <div class="d1-kpi-num" id="kpiRate">-</div>
-        <div class="d1-kpi-sub">濕度回升達標自動停止</div>
+        <div class="d1-kpi-sub">濕度回升達標停止</div>
       </div>
     </div>
 
@@ -160,7 +308,7 @@
         <div class="d1-pie-box"><canvas id="chartPlantRatio"></canvas></div>
       </div>
       <div class="d1-card">
-        <h2>🌡️ 歷史土壤濕度狀態分佈比例</h2>
+        <h2>🌡️ 歷史土壤濕度區間比例</h2>
         <div class="d1-pie-box"><canvas id="chartHumidityRatio"></canvas></div>
       </div>
       <div class="d1-card">
@@ -170,7 +318,7 @@
     </div>
 
     <!-- 歷史濕度變化折線圖 -->
-    <div class="d1-card" style="margin-bottom: 22px;">
+    <div class="d1-card" style="margin-bottom: 18px;">
       <h2>📈 三盆栽土壤濕度歷史變化趨勢（最近 100 筆）</h2>
       <div class="d1-line-box"><canvas id="chartTrend"></canvas></div>
     </div>
@@ -183,27 +331,31 @@
           <thead>
             <tr>
               <th>紀錄時間 (UTC+8)</th>
-              <th>盆栽編號</th>
-              <th>澆水前濕度</th>
-              <th>澆水後濕度</th>
-              <th>濕度提升幅度</th>
-              <th>執行輪數</th>
+              <th>盆栽</th>
+              <th>澆水前</th>
+              <th>澆水後</th>
+              <th>提升幅度</th>
+              <th>輪數</th>
               <th>執行狀態</th>
             </tr>
           </thead>
           <tbody id="wateringBody">
-            <tr><td colspan="7" style="text-align:center;color:#999;">載入中...</td></tr>
+            <tr><td colspan="7" style="text-align:center;color:#81c784;">載入中...</td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </main>
 
-  <footer>© 2026 讓綠意蔓延吧｜智慧澆水系統 新北市立鶯歌高級工商職業學校 資訊科 版權所有</footer>
+  <footer class="d1-footer">© 2026 讓綠意蔓延吧｜智慧澆水系統 新北市立鶯歌高級工商職業學校 資訊科 版權所有</footer>
 
   <script>
     const WORKER_API = "https://watersystem-api.yt5044885.workers.dev/stats";
     const chartInstances = {};
+
+    // 設定 Chart.js 深色背景文字與格線顏色
+    Chart.defaults.color = "#c8e6c9";
+    Chart.defaults.borderColor = "rgba(255, 255, 255, 0.1)";
 
     async function loadD1Stats() {
       const errBox = document.getElementById("errBox");
@@ -215,7 +367,7 @@
 
         errBox.style.display = "none";
         document.getElementById("statusText").textContent =
-          "已連線 Cloudflare D1 資料庫｜最後更新：" + new Date().toLocaleTimeString() + "（每 30 秒自動更新）";
+          "已連線 Cloudflare D1｜最後更新：" + new Date().toLocaleTimeString() + "（每 30 秒自動更新）";
         renderDashboard(data);
       } catch (err) {
         errBox.textContent = "⚠️ 無法取得雲端數據：" + err.message;
@@ -224,7 +376,6 @@
     }
 
     function renderDashboard(data) {
-      // 1. 計算各盆栽澆水比例
       const pCounts = [0, 0, 0];
       let totalWater = 0;
       let totalRounds = 0;
@@ -237,7 +388,6 @@
       });
 
       document.getElementById("kpiLogs").textContent = (data.humidityDist.total_rows || 0) + " 筆";
-      document.getElementById("kpiTotalWater") ? null : null;
       document.getElementById("kpiWater").textContent = totalWater + " 次";
       document.getElementById("kpiRounds").textContent = "累計噴水輪數：" + totalRounds + " 輪";
 
@@ -247,13 +397,12 @@
         if (pCounts[2] > pCounts[maxIdx]) maxIdx = 2;
         const pct = ((pCounts[maxIdx] / totalWater) * 100).toFixed(1);
         document.getElementById("kpiTopPlant").textContent = "盆栽 " + (maxIdx + 1);
-        document.getElementById("kpiTopPct").textContent = "佔總澆水次數比例：" + pct + "%";
+        document.getElementById("kpiTopPct").textContent = "佔總澆水比例：" + pct + "%";
       } else {
         document.getElementById("kpiTopPlant").textContent = "尚無紀錄";
-        document.getElementById("kpiTopPct").textContent = "佔總澆水次數比例：0%";
+        document.getElementById("kpiTopPct").textContent = "佔總澆水比例：0%";
       }
 
-      // 2. 完成率與狀態統計
       const stLabels = [];
       const stCounts = [];
       let okCount = 0;
@@ -267,29 +416,25 @@
       document.getElementById("kpiRate").textContent =
         stTotal > 0 ? ((okCount / stTotal) * 100).toFixed(1) + "%" : "-";
 
-      // 圖表 1：各盆栽澆水次數比例
-      drawPieChart("chartPlantRatio", "doughnut", ["盆栽 1", "盆栽 2", "盆栽 3"], pCounts, ["#4CAF50", "#2196F3", "#FF9800"]);
+      drawPieChart("chartPlantRatio", "doughnut", ["盆栽 1", "盆栽 2", "盆栽 3"], pCounts, ["#66bb6a", "#42a5f5", "#ffa726"]);
 
-      // 圖表 2：濕度區間比例 (乾燥 <=30%, 正常 31~59%, 潮濕 >=60%)
       const hd = data.humidityDist;
       drawPieChart(
         "chartHumidityRatio",
         "pie",
         ["乾燥 (≤30%)", "正常 (31~59%)", "潮濕 (≥60%)"],
         [hd.dry_count || 0, hd.normal_count || 0, hd.wet_count || 0],
-        ["#EF5350", "#FFCA28", "#26A69A"]
+        ["#ef5350", "#ffca28", "#26a69a"]
       );
 
-      // 圖表 3：澆水執行結果比例
       drawPieChart(
         "chartStatusRatio",
         "doughnut",
         stLabels.length ? stLabels : ["尚無紀錄"],
         stCounts.length ? stCounts : [1],
-        stCounts.length ? ["#2E7D32", "#E53935", "#FB8C00", "#8E24AA"] : ["#E0E0E0"]
+        stCounts.length ? ["#4caf50", "#ef5350", "#ffa726", "#ab47bc"] : ["#37474f"]
       );
 
-      // 圖表 4：濕度變化趨勢折線圖
       const labels = (data.recentSensors || []).map(r => (r.recorded_at || "").slice(5, 16));
       const h1Arr = (data.recentSensors || []).map(r => r.h1);
       const h2Arr = (data.recentSensors || []).map(r => r.h2);
@@ -301,9 +446,9 @@
         data: {
           labels: labels,
           datasets: [
-            { label: "盆栽 1 (%)", data: h1Arr, borderColor: "#4CAF50", backgroundColor: "rgba(76,175,80,0.1)", tension: 0.3, pointRadius: 2 },
-            { label: "盆栽 2 (%)", data: h2Arr, borderColor: "#2196F3", backgroundColor: "rgba(33,150,243,0.1)", tension: 0.3, pointRadius: 2 },
-            { label: "盆栽 3 (%)", data: h3Arr, borderColor: "#FF9800", backgroundColor: "rgba(255,152,0,0.1)", tension: 0.3, pointRadius: 2 }
+            { label: "盆栽 1 (%)", data: h1Arr, borderColor: "#66bb6a", backgroundColor: "rgba(102,187,106,0.12)", tension: 0.3, pointRadius: 2 },
+            { label: "盆栽 2 (%)", data: h2Arr, borderColor: "#42a5f5", backgroundColor: "rgba(66,165,245,0.12)", tension: 0.3, pointRadius: 2 },
+            { label: "盆栽 3 (%)", data: h3Arr, borderColor: "#ffa726", backgroundColor: "rgba(255,167,38,0.12)", tension: 0.3, pointRadius: 2 }
           ]
         },
         options: {
@@ -313,10 +458,9 @@
         }
       });
 
-      // 明細表格
       const tbody = document.getElementById("wateringBody");
       if (!data.recentWaterings || !data.recentWaterings.length) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;">目前尚無自動澆水紀錄</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#81c784;">目前尚無自動澆水紀錄</td></tr>';
         return;
       }
       tbody.innerHTML = data.recentWaterings.map(w => {
@@ -342,7 +486,7 @@
         type: type,
         data: {
           labels: labels,
-          datasets: [{ data: values, backgroundColor: colors, borderWidth: 2 }]
+          datasets: [{ data: values, backgroundColor: colors, borderColor: "#13261c", borderWidth: 2 }]
         },
         options: {
           responsive: true,
